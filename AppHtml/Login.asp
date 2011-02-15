@@ -113,9 +113,6 @@
         <h3>Please login to the system</h3>
         <blockquote>
             <div>
-		        You will need to log into the system if you wish to add, edit or delete information.
-		        You do not need to log into the system if you wish to view data. This capability
-		        is extended to all of our guests.
 		    </div>
 		</blockquote>
         <blockquote class="Error" id="userlogin__error">
