@@ -1,0 +1,4 @@
+#REPLACE FILE1 Company
+#REPLACE Company.Recnum |FN1,0
+#REPLACE Company.CompanyId |FN1,1
+#REPLACE Company.name |FS1,2

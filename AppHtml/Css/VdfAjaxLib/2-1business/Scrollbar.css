@@ -1,0 +1,90 @@
+/*
+The style definitions of the scrollbar which consists of a table with three cells.
+
+Component:
+   vdf.gui.Scrollbar
+*/
+
+.scrollbar, .modaldialog .scrollbar{
+   margin: 0px;
+   padding: 0px;
+   width: 16px;
+   border-left: 1px solid #C8C8C8;
+}
+
+/*
+   Button up
+*/
+.scrollbar .btnup, .scrollbar .btnup_down, .scrollbar .btnup_disabled {
+    background: url(Scrollbar/scrollbar-up-disabled.gif) no-repeat center;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.scrollbar .btnup:hover{
+    background: url(Scrollbar/scrollbar-up-hover.gif) no-repeat center;
+}
+
+.scrollbar .btnup_down {
+   background: url(Scrollbar/scrollbar-up-down.gif) no-repeat center;
+}
+
+.scrollbar .btnup_disabled {
+   background: url(Scrollbar/scrollbar-up-disabled.gif) no-repeat center;
+}
+
+/*
+   Button down
+*/    
+.scrollbar .btndown, .scrollbar .btndown_down, .scrollbar .btndown_disabled {
+    background: url(Scrollbar/scrollbar-down-disabled.gif) no-repeat center;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.scrollbar .btndown:hover{
+    background: url(Scrollbar/scrollbar-down-hover.gif) no-repeat center;
+}
+
+.scrollbar .btndown_down {
+   background: url(Scrollbar/scrollbar-down-down.gif) no-repeat center;
+}
+
+.scrollbar .btndown_disabled {
+   background: url(Scrollbar/scrollbar-down-disabled.gif) no-repeat center;
+}
+
+/*
+   Slider
+*/
+.scrollbar .slider, .scrollbar .slider_down, .scrollbar .slider_disabled {
+    background: url(Scrollbar/slider-normal.gif) no-repeat center;
+    width: 15px;
+    height: 55px;
+    cursor: pointer;
+}
+
+.scrollbar .slider:hover{
+    background: url(Scrollbar/slider-hover.gif) no-repeat center;
+}
+
+.scrollbar .slider_down {
+   background: url(Scrollbar/slider-down.gif) no-repeat center;
+}
+
+.scrollbar .slider_disabled {
+    background: url(Scrollbar/slider-disabled.gif) no-repeat center;  
+}
+
+/*
+   Background (bar)
+*/
+.scrollbar .before,  .scrollbar .after {
+    background: url(Scrollbar/scrollbar-bg.gif) center repeat-y;
+}
+
+.scrollbar .before_disabled, .scrollbar .after_disabled{
+    background: url(Scrollbar/scrollbar-bg.gif) center repeat-y;
+}

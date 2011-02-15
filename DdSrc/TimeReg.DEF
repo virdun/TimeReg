@@ -1,0 +1,41 @@
+-----------------------------------------------------------------------------
+  DATE: 09-08-2010      TIME: 10:38                                  PAGE:  1
+  FILE DEFINITION FOR FILE: TimeReg (# 3)
+-----------------------------------------------------------------------------
+  DRIVER NAME               : DATAFLEX
+  FILE ROOT NAME            : TimeReg
+  USER DISPLAY NAME         : TimeReg
+  DATAFLEX FILE NAME        : TimeReg
+-----------------------------------------------------------------------------
+  RECORD LENGTH             : 34        ( USED: 24 )
+  MAX NUMBER OF RECORDS     : 10000     ( USED: 11 )
+  FILE COMPRESSION          : NONE
+  RE-USE DELETED SPACE      : YES
+  LOCKING TYPE              : FILE
+  HEADER INTEGRITY CHECKING : YES
+  TRANSACTION TYPE          : CLIENT ATOMIC
+  RECORD IDENTITY INDEX     : 0 ( 0 , 0 )
+  FILE LOGIN PARAMETER      : 
+  SYSTEM FILE               : NO 
+-----------------------------------------------------------------------------
+
+NUM  FIELD NAME       TYPE SIZE  OFFST IX   RELATES TO FILE.FIELD
+---  ---------------  ---- ----- ----- --   ---------------------------------
+  1  UserId           NUM    8.0     1  1   User.FIELD_1 (220,1)
+  2  ProjectId        NUM    8.0     5      Project.FIELD_1 (2,1)
+  3  start_date       DAT      6     9  2   
+  4  start_time       ASC      5    12      
+  5  end_date         DAT      6    17      
+  6  end_time         ASC      5    20  1   
+
+
+INDEX# FIELDS          DES U/C    LENGTH LEVELS SEGMENTS MODE
+------ --------------- --- ---    ------ ------ -------- -------
+  1    UserId          NO  NO       12     3       3     ON-LINE
+       end_time        NO  NO 
+       Recnum          NO  NO 
+
+  2    UserId          NO  NO       10     3       3     ON-LINE
+       start_date      NO  NO 
+       Recnum          NO  NO 
+

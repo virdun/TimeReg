@@ -1,0 +1,23 @@
+Use  Windows.pkg           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  Ddvaltbl.pkg          // Validation Table Class Definitions
+
+Open Ordsys
+
+Class Ordsys_DataDictionary  is a DataDictionary
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+        Set Main_File            To Ordsys.File_Number
+
+        Set Foreign_Field_Options  DD_KEYFIELD   To DD_AUTOFIND    DD_NOPUT       DD_FINDREQ    
+        Set Foreign_Field_Options  DD_INDEXFIELD To DD_NOPUT       DD_FINDREQ    
+        Set Foreign_Field_Options  DD_DEFAULT    To DD_DISPLAYONLY
+    End_Procedure    // Construct_Object
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+End_Class    // Ordsys_DataDictionary

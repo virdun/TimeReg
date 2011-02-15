@@ -1,0 +1,227 @@
+.vdfform textarea, .vdfform input, .vdfform select, .vdfform .bcd_data, .vdfform .ascii_data, .vdfform .date_data, .vdfform .text_data{
+    font-family:  Verdana, Arial, 'Century Gothic';
+    font-size: 11px;
+    color: #777777;
+    opacity: 100;
+}
+
+.vdfform  .bcd_data {
+    text-align: right;
+}
+    
+.vdfform textarea, .vdfform input[type="text"], .vdfform input[type="password"], .vdfform select{
+    border: 1px solid #BBBBBB;
+    background: #FFFFFF;
+    padding: 1px;
+    *padding: 2px;
+}
+
+.vdfform select{
+    padding: 0px;
+}
+    
+
+    
+
+
+/*
+    Lookup button
+*/
+    
+.LookupButton {
+    border: none;
+    height: 13px;
+    width: 16px;
+    padding: 0px;
+    margin: auto;
+    cursor: pointer;
+    
+    background: url(List.png) no-repeat center;
+}
+
+.LookupButton:hover {
+    background: url(List-hover.png) no-repeat center;
+}    
+
+    
+/*
+    Regular button
+*/
+
+.vdfform .ButtonNormal, .ButtonNormal {
+    background: url(Button-normal.jpg) repeat-x;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+    height: 21px;
+    border: 2px solid #A0A1A2;
+    padding-bottom: 5px;
+}
+
+.vdfform .ButtonNormal:hover, .ButtonNormal:hover {
+    background: url(Button-normal-hover.jpg) repeat-x;
+    border: 2px solid #3898BE;
+}
+
+/*
+    Toolbar
+*/
+
+.Toolbar .NavigationButton, .vdfform .NavigationButton{
+    border: 0px solid black;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.Toolbar {
+    background: url(Toolbar/Toolbar.jpg) repeat-x;
+    width: 100%;
+    height: 34px;
+}
+  
+.Toolbar .ButtonCell{
+    width: 30px;
+}
+
+.Toolbar .TextCell{
+    width: 30px;
+}
+
+#First {
+    background: url(Toolbar/First.png) no-repeat;
+}
+#First:hover {
+    background: url(Toolbar/First-hover.png) no-repeat;
+}
+
+#Previous {
+    background: url(Toolbar/Previous.png) no-repeat;
+}
+#Previous:hover {
+    background: url(Toolbar/Previous-hover.png) no-repeat;
+}
+
+#Equal {
+    background: url(Toolbar/Equal.png) no-repeat;
+}
+#Equal:hover {
+    background: url(Toolbar/Equal-hover.png) no-repeat;
+}
+
+#Next {
+    background: url(Toolbar/Next.png) no-repeat;
+}
+#Next:hover {
+    background: url(Toolbar/Next-hover.png) no-repeat;
+}
+
+
+#Last {
+    background: url(Toolbar/Last.png) no-repeat;
+}
+#Last:hover {
+    background: url(Toolbar/Last-hover.png) no-repeat;
+}
+
+#Save {
+    background: url(Toolbar/Save.png) no-repeat;
+}
+#Save:hover {
+    background: url(Toolbar/Save-hover.png) no-repeat;
+}
+
+#Clear {
+    background: url(Toolbar/Clear.png) no-repeat;
+}
+#Clear:hover {
+    background: url(Toolbar/Clear-hover.png) no-repeat;
+}
+
+#Delete {
+    background: url(Toolbar/Delete.png) no-repeat;
+}
+#Delete:hover {
+    background: url(Toolbar/Delete-hover.png) no-repeat;
+}
+
+
+/*------------------------------
+    ERROR STYLE
+-------------------------------*/
+    
+.vdfform input[type="text"].fieldError, .vdfform select.fieldError, .vdfform textarea.fieldError{
+    border: 1px solid #FF3300;
+    color: red;
+    background-image: url(zigzag.jpg);
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+
+.fieldErrorIcon{
+    background-image: url(invalid-icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1px 8px 0px 8px;
+    margin: auto;
+}
+
+.fieldErrorText{
+    color: #FF3300;
+}
+
+/*
+   FIELD LOCKING
+*/
+
+.vdfform .locked {
+   background-image: url(loading_small.gif);
+   background-position: right;
+   background-repeat: no-repeat;
+}
+
+.vdfform .locked_overlay {
+   position: absolute;
+   background-image: url(loading_small.gif);
+   background-repeat: no-repeat;
+   background-position: center right;
+   padding: 0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px;
+}
+
+.vdfform .locked_fade {
+   color: #EAEAEA;
+   background-color: #D1F0FF;  
+}
+
+/*------------------------------
+    SUGGESTION LIST STYLE
+-------------------------------*/
+
+.vdfSuggest{
+    position: absolute;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    z-index: 400;
+    margin-top: -1px;
+}
+
+.vdfSuggest .vdfSuggestion{
+    padding: 2px;
+    background-color: #ffffff;
+}
+
+.vdfSuggest .selected{
+    padding: 2px;   
+    background-color: #00A1E2;
+    color: #ffffff;
+}
+
+.vdfSuggest tr{
+    cursor: pointer;
+}
+
+.vdfSuggest td{
+    padding: 2px;
+}

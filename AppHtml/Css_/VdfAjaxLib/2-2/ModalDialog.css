@@ -1,0 +1,265 @@
+.modaldialog_mask{
+    position: fixed;
+    z-index: 900;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: black;
+    filter: alpha(opacity=40);
+    opacity: .4;
+}
+
+.modaldialog_dragmask {
+   position: fixed;
+   z-index: 920;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   padding: 0px;
+   margin: 0px;
+   background: #FFFFFF;
+   filter: alpha(opacity=0);
+   opacity: .0;
+   cursor: move;
+}
+
+
+.modaldialog  {
+    border: 0px none;
+    position: fixed;
+    z-index: 910;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    background: ;
+}
+
+.modaldialog table{
+	border: none;
+}
+
+.modaldialog .content {
+	border-right: 1px solid #747675;
+    border-left: 1px solid #747675;
+    background-color: #FFFFFF;
+}
+
+/*
+   Content styles
+*/
+
+.modaldialog .content .message{
+   padding-bottom: 10px;
+   padding-left: 20px;
+   padding-right: 20px;
+   padding-top: 10px;
+   min-width: 300px;
+   min-height: 50px;
+}
+
+.modaldialog .content .message span{
+    white-space: nowrap;
+}
+
+.vdf-ie6 .modaldialog .content .message{
+    width: 300px;
+    height: 50px;
+} 
+
+.modaldialog .content .vdfMsgDetails{
+    margin-top: 20px;
+    min-width: 300px;
+}
+
+.vdf-ie .modaldialog .content .vdfMsgDetails div div{
+    width: 800px;
+    height: 200px;
+}
+
+.modaldialog .content .vdfMsgDetails div div{
+    min-width: 300px;
+    max-width: 1000px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFFFFF;
+}
+
+.modaldialog .content .page{
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.modaldialog .content .dom, .modaldialog .content .html{
+   margin: 0px 0px 0px 0px;
+}
+
+/*
+	Title bar!
+*/
+.modaldialog .titlebar{
+	height: 30px;
+}
+
+.modaldialog .titlebar table{
+   width: 100%;
+}
+
+.modaldialog .titlebar .title{
+   color: #FFFFFF;
+   font-weight: bold;
+   background: url(modaldialog.gif) repeat-x 0px -80px;
+   text-transform: uppercase;
+}
+
+.modaldialog .titlebar .left{
+	width: 6px;
+	height: 30px;
+    background: url(modaldialog.gif) no-repeat left 0px;
+}
+
+.modaldialog .titlebar .right{
+	width: 6px;
+	height: 30px;
+    background: url(modaldialog.gif) no-repeat right -40px;
+}
+
+.modaldialog .titlebar .controls {
+    background: url(modaldialog.gif) repeat-x 0px -80px;
+	padding-left: 10px;
+	width: 1px;
+}
+
+.modaldialog .titlebar .controls .close{
+    background: url(actionbuttons.png) no-repeat -90px 0px;
+	width: 15px;
+	height: 15px;
+}
+.modaldialog .titlebar .controls A:hover .close, .modaldialog .titlebar .controls A:focus .close{
+	background-position: -90px -20px;
+}
+.modaldialog .titlebar .controls A:active .close{
+	background-position: -90px -40px;
+}
+.vdf-ie6 .modaldialog .titlebar .controls .close{
+    background-image: url(actionbuttons.gif);
+}
+
+
+/*
+	Button bar
+*/
+
+.modaldialog .buttonbar table{
+   width: 100%;  
+}
+
+.modaldialog .buttonbar .left{
+	width: 6px;
+	height: 30px;
+    background: url(modaldialog.gif) no-repeat left -160px;
+}
+
+.modaldialog .buttonbar .right{
+	width: 6px;
+	height: 30px;
+    background: url(modaldialog.gif) no-repeat right -200px;
+}
+
+.modaldialog .buttonbar .buttons{
+   background: url(modaldialog.gif) repeat-x 0px -240px;
+   padding-left: 50px;
+}
+
+.modaldialog .buttonbar .buttons a{
+   background-color: transparent;
+   padding-left: 20px;
+   margin-right: 20px;
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.modaldialog .buttonbar .buttons a:hover{
+    text-decoration: underline;
+}
+
+/*
+	Default buttons
+*/
+.modaldialog .buttonbar .buttons .btnClose{
+    background: url(modaldialog-buttons.gif) no-repeat 0px 0px;   
+}
+.modaldialog .buttonbar .buttons .btnClose:hover, .modaldialog .buttonbar .buttons .btnClose:focus{
+    background-position: 0px -20px;
+}
+.modaldialog .buttonbar .buttons .btnClose:active{
+    background-position: 0px -40px;
+}
+
+.modaldialog .buttonbar .buttons .btnSave{
+    background: url(modaldialog-buttons.gif) no-repeat 0px -160px;   
+}
+.modaldialog .buttonbar .buttons .btnSave:hover, .modaldialog .buttonbar .buttons .btnSave:hover{
+    background-position: 0px -180px;
+}
+.modaldialog .buttonbar .buttons .btnSave:active{
+    background-position: 0px -200px;
+}
+
+.modaldialog .buttonbar .buttons .btnOke{
+    background: url(modaldialog-buttons.gif) no-repeat 0px -80px;   
+}
+.modaldialog .buttonbar .buttons .btnOke:hover, .modaldialog .buttonbar .buttons .btnOke:focus{
+    background-position: 0px -100px;
+}
+.modaldialog .buttonbar .buttons .btnOke:active{
+    background-position: 0px -120px;
+}
+
+
+
+
+
+
+
+/*
+   LOOKUPDIALOG STYLE
+*/
+
+.modaldialog .content .lookupdialog form, .modaldialog .content .lookupdialog{
+   margin: 0px 0px 0px 0px;
+}
+
+.modaldialog .buttonbar .buttons .btnCancel{
+    background: url(modaldialog-buttons.gif) no-repeat 0px 0px;   
+}
+.modaldialog .buttonbar .buttons .btnCancel:hover, .modaldialog .buttonbar .buttons .btnCancel:focus{
+    background-position: 0px -20px;
+}
+.modaldialog .buttonbar .buttons .btnCancel:active{
+    background-position: 0px -40px;
+}
+
+.modaldialog .buttonbar .buttons .btnSearch{
+    background: url(modaldialog-buttons.gif) no-repeat 0px -240px;   
+}
+.modaldialog .buttonbar .buttons .btnSearch:hover, .modaldialog .buttonbar .buttons .btnSearch:focus{
+    background-position: 0px -260px;
+}
+.modaldialog .buttonbar .buttons .btnSearch:active{
+    background-position: 0px -280px;
+}
+
+.modaldialog .buttonbar .buttons .btnSelect{
+   background: url(modaldialog-buttons.gif) no-repeat 0px -320px;   
+}
+.modaldialog .buttonbar .buttons .btnSelect:hover, .modaldialog .buttonbar .buttons .btnSelect:focus{
+    background-position: 0px -340px;
+}
+.modaldialog .buttonbar .buttons .btnSelect:active{
+    background-position: 0px -360px;
+}

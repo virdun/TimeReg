@@ -1,0 +1,12 @@
+#REPLACE FILE220 User
+#REPLACE User.Recnum |FN220,0
+#REPLACE User.UserId |FN220,1
+#REPLACE User.LoginName |FS220,2
+#REPLACE User.Password |FS220,3
+#REPLACE User.FirstName |FS220,4
+#REPLACE User.LastName |FS220,5
+#REPLACE User.State |FS220,6
+#REPLACE User.EditRights |FS220,7
+#REPLACE User.color |FS220,8
+#REPLACE User.CompanyId |FN220,9
+#REPLACE User.Mail |FS220,10

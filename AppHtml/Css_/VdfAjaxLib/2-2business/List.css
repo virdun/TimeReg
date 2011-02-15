@@ -1,0 +1,172 @@
+
+/*
+   LIST STYLE
+*/
+
+.list, .modaldialog .list {
+    border: 1px solid #99BBE8;
+    background-color: #FFFFFF;
+}
+
+.list td, .list th{
+   border-left: 1px solid #DAE3EC;
+}
+
+.list td:first-child , .list th:first-child {
+    border-left: none;
+}
+
+.list .rowheader{
+    height: 21px;
+}
+.vdf-mozilla .list .rowheader, .vdf-opera .list .rowheader{
+    height: 22px;
+}
+
+.list .rowheader th{
+    color: #16428D;
+    height: 21px;
+    font-weight: normal;
+    padding-left: 5px;
+    border-bottom: 1px solid #B1BCCE;
+    text-align: left;
+    padding-left: 10px;   
+    padding-right: 0px;
+    background: url(list.png) repeat-x;
+}
+
+.list .rowheader th div{
+    height: 17px;
+    padding-top: 4px;
+    padding-right: 10px;
+}
+
+
+.list .rowempty td, .list .rowdisplay td{
+   height: 18px;
+   padding-left: 10px;   
+   padding-right: 10px;
+}
+
+.list .rowdisplay{
+   cursor: pointer;
+}
+
+.list .rowodd{
+
+}
+
+.list .rowempty{
+}
+
+/*
+
+*/
+.list .rowheader .headerindex, .list .rowheader .headerselected, .list .rowheader .headerreversed{
+    padding-right: 0px;
+    cursor: pointer;
+}
+
+.list .rowheader th.headerindex:hover, .list .rowheader .headerreversed:hover, .list .rowheader .headerselected:hover{
+    background-position: 0px -30px;
+}
+
+.list .rowheader .headerindex div{
+    background: url(list.png) no-repeat right -120px;
+}
+
+.list .rowheader .headerselected, .list .rowheader .headerreversed{
+    background: url(list.png) repeat-x 0px -60px;
+}
+
+.list .rowheader .headerselected div{
+    background: url(list.png) no-repeat right -140px;
+
+}
+
+.list .rowheader .headerreversed div{
+    background: url(list.png) no-repeat right -160px;
+    
+}
+
+
+
+.list_loading{
+    position: absolute;
+    background: transparent url(loading_big.gif) no-repeat center;
+}
+
+
+/*
+   LOOKUP STYLE
+*/
+
+.list tr.rowselected , .list tr.rowedit {
+    background-color: #F3F7FA;
+    color: #000000;
+}
+
+.list .focussed tr.rowselected, .list .focussed tr.rowedit{
+   background-color: #B1E6F8;
+}
+
+/*
+   GRID STYLE
+*/
+
+.list tr.rowedit {
+    color: #000000;   
+}
+
+.list .rowedit input, .list .rowdisplay input{
+    padding-left: 8px;
+    *padding-left: 9px;
+    padding-right: 8px;
+    *padding-right: 9px;
+}
+
+.list .rowedit select, .list .rowdisplay select {
+    padding-left: 5px;
+}
+
+.list .DeleteButton, .list .rowedit .DeleteButton{
+    background: url(list.png) no-repeat center -180px;
+    width: 20px;
+    height: 13px;
+    border: 0px solid #FFFFFF;
+    cursor: pointer;
+}
+
+.list .DeleteButton:hover, .list .rowedit .DeleteButton:hover{
+    background-position: center -200px;
+}
+.list .DeleteButton:active, .list .rowedit .DeleteButton:active{
+    background-position: center -220px;
+}
+.list .DeleteButton[disabled], .list .rowedit .DeleteButton[disabled]{
+    background-position: center -240px;
+}
+
+.list .rowedit .DeleteButton{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.list .rowempty .DeleteButton{
+    display: none;
+}
+
+/*
+Under IE we still prefer to use GIF over PNG.
+*/
+.vdf-ie .list .rowheader th, 
+    .vdf-ie .list .rowheader .headerindex, 
+    .vdf-ie .list .rowheader .headerindex div, 
+    .vdf-ie .list .rowheader .headerselected,
+    .vdf-ie .list .rowheader .headerselected div, 
+    .vdf-ie .list .rowheader .headerreversed, 
+    .vdf-ie .list .rowheader .headerreversed div, 
+    .vdf-ie .list .DeleteButton, 
+    .vdf-ie .list .rowedit .DeleteButton{
+    background-image: url(list.gif);
+}

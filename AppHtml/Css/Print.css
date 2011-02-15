@@ -1,0 +1,63 @@
+
+/*---------------------------
+
+	DATA ACCESS EUROPE B.V. 
+
+----------------------------*/
+
+
+/*--------------------------
+    GENERAL STYLE
+-------------------------*/
+
+.menurow {
+    display: none;
+}
+
+.headerrow {
+    display: none;
+}
+
+.maintable {
+    border: none;
+    height: 100%;
+    
+}
+
+.mainfoot{
+    border: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+h4 {
+    border: none;
+}
+
+body, h1, h2, h3, h4, th, a, a:hover, a:visited, a:active , a:link, .Label{
+    color: black;
+    background: none;
+}
+
+
+/*--------------------------
+    REPORT STYLE
+-------------------------*/
+
+.ReportTable, .ZoomTable{
+    border: none;
+}
+
+.ReportNavigation{
+    display: none;
+}
+
+.ZoomTable .Label, .ZoomTable .Header, .ReportTable .Header, .ReportTable .Total{
+    color: black;
+    background: none;
+}
+
+
+

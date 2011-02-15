@@ -1,0 +1,83 @@
+/*
+    vdf.gui.CollapsePanel
+    
+    <div class="collapsepanel">
+        <a class="cp_button">&nbsp</a>
+        <h3 class="cp_title">..</h3>
+        <div class="cp_content"></div>
+    </div>
+    
+    The div at the main level will get the cp_expanded class as well if the 
+    collapsepanel is expanded.
+*/
+.collapsepanel{
+    background: url(collapsepanel.gif) repeat-x 0px -25px;
+    padding-top: 24px;
+}
+
+.cp_expanded{
+    background-position: 0px -200px;
+}
+
+.collapsepanel .cp_content{
+    border: 1px solid #CEE3F6;
+    border-top: none;
+    background-color: #FFFFFF;
+}
+
+.collapsepanel .cp_button{ 
+    background: url(collapsepanel.gif) no-repeat left -50px;
+    margin-top: -24px;
+    margin-bottom: 0px;
+    height: 23px;
+    width: 23px;
+    float: left;
+    text-decoration: none;
+}
+
+.collapsepanel .cp_button:hover{
+    background-position: left -75px;
+}
+
+.collapsepanel .cp_button:active{
+    background-position: left -100px;
+}
+
+.collapsepanel .cp_button:focus{
+    background-position: left -150px;
+}
+
+.cp_expanded .cp_button{
+    background-position: left -225px;
+}
+
+.cp_expanded .cp_button:hover{
+    background-position: left -250px;
+}
+
+.cp_expanded .cp_button:active{
+    background-position: left -275px;
+}
+.cp_expanded .cp_button:focus{
+    background-position: left -325px;
+}
+
+
+.collapsepanel .cp_title{
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    color: #000000;
+    padding: 4px 5px 1px 5px;
+    display: box;
+    margin-top: -24px;
+    margin-bottom: 0px;
+    margin-left: 24px;
+    height: 19px;
+    background: url(collapsepanel.gif) no-repeat right 0px;
+}
+
+.cp_expanded .cp_title{
+    background-position: right -175px;
+}

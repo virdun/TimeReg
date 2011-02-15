@@ -1,0 +1,26 @@
+-----------------------------------------------------------------------------
+  DATE: 24-06-2010      TIME: 15:04                                  PAGE:  1
+  FILE DEFINITION FOR FILE: Project (# 2)
+-----------------------------------------------------------------------------
+  DRIVER NAME               : DATAFLEX
+  FILE ROOT NAME            : Project
+  USER DISPLAY NAME         : Project
+  DATAFLEX FILE NAME        : Project
+-----------------------------------------------------------------------------
+  RECORD LENGTH             : 36        ( USED: 35 )
+  MAX NUMBER OF RECORDS     : 10000     ( USED: 0 )
+  FILE COMPRESSION          : NONE
+  RE-USE DELETED SPACE      : YES
+  LOCKING TYPE              : FILE
+  HEADER INTEGRITY CHECKING : YES
+  TRANSACTION TYPE          : CLIENT ATOMIC
+  RECORD IDENTITY INDEX     : 0 ( 0 , 0 )
+  FILE LOGIN PARAMETER      : 
+  SYSTEM FILE               : NO 
+-----------------------------------------------------------------------------
+
+NUM  FIELD NAME       TYPE SIZE  OFFST IX   RELATES TO FILE.FIELD
+---  ---------------  ---- ----- ----- --   ---------------------------------
+  1  id               NUM   10.0     1      
+  2  name             ASC     30     6      
+

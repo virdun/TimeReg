@@ -1,0 +1,90 @@
+/*
+The style definitions of the scrollbar which consists of a table with three cells.
+
+Component:
+   vdf.gui.Scrollbar
+*/
+
+.scrollbar, .modaldialog .scrollbar{
+   margin: 0px;
+   padding: 0px;
+   width: 16px;
+   border-left: 1px solid #C8C8C8;
+}
+
+/*
+   Button up
+*/
+.scrollbar .btnup, .scrollbar .btnup_down, .scrollbar .btnup_disabled {
+    background: url(scrollbar.gif) no-repeat;
+    background-position: -100px 0px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.scrollbar .btnup:hover{
+    background-position: -100px -20px;
+}
+
+.scrollbar .btnup_down {
+    background-position: -100px -40px;
+}
+
+.scrollbar .btnup_disabled {
+    background-position: -100px -60px;
+}
+
+/*
+   Button down
+*/    
+.scrollbar .btndown, .scrollbar .btndown_down, .scrollbar .btndown_disabled {
+    background: url(scrollbar.gif) no-repeat;
+    background-position: -120px 0px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.scrollbar .btndown:hover{
+    background-position: -120px -20px;
+}
+
+.scrollbar .btndown_down {
+   background-position: -120px -40px;
+}
+
+.scrollbar .btndown_disabled {
+   background-position: -120px -60px;
+}
+
+/*
+   Slider
+*/
+.scrollbar .slider, .scrollbar .slider_down, .scrollbar .slider_disabled {
+    background: url(scrollbar.gif) no-repeat;
+    background-position: -20px 0px;
+    width: 15px;
+    height: 55px;
+    cursor: pointer;
+}
+
+.scrollbar .slider:hover{
+    background-position: -40px 0px;
+}
+
+.scrollbar .slider_down {
+    background-position: -60px 0px;
+}
+
+.scrollbar .slider_disabled {
+    background-position: -80px 0px;
+}
+
+/*
+   Background (bar)
+*/
+.scrollbar .before,  .scrollbar .after, .scrollbar .before_disabled, .scrollbar .after_disabled {
+    background: url(scrollbar.gif) repeat-y;
+    background-position: 0px 0px;
+}

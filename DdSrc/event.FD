@@ -1,0 +1,11 @@
+#REPLACE FILE9 event
+#REPLACE event.Recnum |FN9,0
+#REPLACE event.id |FN9,1
+#REPLACE event.title |FS9,2
+#REPLACE event.text |FS9,3
+#REPLACE event.start_date |FD9,4
+#REPLACE event.end_date |FD9,5
+#REPLACE event.start_time |FS9,6
+#REPLACE event.end_time |FS9,7
+#REPLACE event.user_id |FN9,8
+#REPLACE event.customer_id |FN9,9

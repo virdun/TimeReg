@@ -1,0 +1,68 @@
+/*
+The style definitions of the balloon which is an absolute positioned 3x3 table.
+
+Component:
+   vdf.gui.Balloon
+*/
+.balloon{
+    position: absolute;
+    border: none;
+}
+
+table.balloon  td{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: none;
+}
+
+.balloon .topleft{
+    background-image: url(Balloon/balloon-topleft.png);
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 15px;
+}
+.balloon .topmid{
+    background-image: url(Balloon/balloon-topmid.png);
+    background-repeat: repeat-x;
+    height: 15px;
+}
+.balloon .topright{
+    background-image: url(Balloon/balloon-topright.png);
+    background-repeat: no-repeat;
+    width: 27px;
+    height: 15px;
+    border: 0px none #FFFFFF;
+}
+
+.balloon .midleft{
+    background-image: url(Balloon/balloon-midleft.png);
+    background-repeat: repeat-y;
+    width: 22px;
+}
+.balloon .bln_content{
+    background-image: url(Balloon/balloon-mid.png);
+    background-repeat: repeat;
+    padding: 2px 0px 2px 0px;
+}
+.balloon .midright{
+    background-image: url(Balloon/balloon-midright.png);
+    background-repeat: repeat-y;
+    width: 27px;
+}
+.balloon .bottomleft{
+    background-image: url(Balloon/balloon-bottomleft.png);
+    background-repeat: no-repeat;
+    width: 22px;
+    height:12px;
+}
+.balloon .bottommid{
+    background-image: url(Balloon/balloon-bottommid.png);
+    background-repeat: repeat-x;
+    height: 12px;
+}
+.balloon .bottomright{
+    background-image: url(Balloon/balloon-bottomright.png);
+    background-repeat: no-repeat;
+    width: 27px;
+    height: 12px;
+}

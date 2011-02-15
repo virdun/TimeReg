@@ -1,0 +1,314 @@
+.calendar{
+   min-width: 200px;
+   border: 1px solid #99BBE8;
+}
+
+/*
+   Titlebar
+*/
+
+.calendar .titlebarintern{
+   background: url(default-bar.gif) repeat-x;
+   border: 0px;
+}
+.calendar .titlebarintern td{
+    height: 23px;
+    border: 0px;
+}
+
+.calendar .titlebarextern, .calendar .titlebarintern{
+    height: 23px;
+}
+
+.calendar .titlebarextern td{
+    height: 23px;
+    background: url(default-bar.gif) repeat-x;
+    border: none;
+}
+
+.calendar .titlebarextern .left{
+   width: 6px;
+   background: url(default-bar.gif) repeat-x;
+}
+
+.calendar .titlebarextern .right{
+   width: 6px;
+   background: url(default-bar.gif) repeat-x;
+}
+
+/*
+   Buttons
+*/
+
+.CalendarButton {
+    font-size: 2px;
+    border: none;
+    cursor: pointer;
+    height: 16px;
+    width: 19px;
+    margin: 0px 2px 0px 4px;
+    padding: 0px 0px 0px 0px;
+    background: url(actionbuttons.png) no-repeat;
+    background-position: -30px 0px;
+}
+
+.CalendarButton:hover, .vdfform .CalendarButton:hover {
+   border: none;
+   background-position: -30px -20px;
+}
+.CalendarButton:active, .vdfform .CalendarButton:active {
+    background-position: -30px -40px;
+}
+.CalendarButton[disabled], .vdfform .CalendarButton[disabled] {
+    background-position: -30px -60px;
+}
+
+.calendar .btnprevious span{
+    background: url(calendar.png) no-repeat;
+    background-position: center -20px;
+    display: block;
+    width: 8px;
+    height: 13px;
+    
+}
+.calendar .btnnext span{
+    background: url(calendar.png) no-repeat;
+    background-position: center 0px;
+    display: block;
+    width: 8px;
+    height: 13px;
+}
+
+.calendar .btnmonth span, .calendar .btnyear span{
+    background: url(Calendar/pulldown.png) no-repeat right;
+    background: url(calendar.png) no-repeat;
+    background-position: right -40px;
+    padding-right: 14px;
+}
+
+.calendar .btnmonth, .calendar .btnyear, .calendar .btnprevious, .calendar .btnnext{
+    float: left;
+    margin-left: 3px;
+    border: 1px solid #99BBE8;
+    cursor: pointer;
+    background-color: #F7F7F7;
+    padding: 2px 4px 2px 4px;
+    height: 13px;
+}
+.calendar .btnprevious{
+    margin-left: 9px;
+}
+
+
+.calendar .btnmonth:hover, .calendar .btnyear:hover, .calendar .btnnext:hover, .calendar .btnprevious:hover{
+    background-color: transparent;
+}
+
+.calendar .btnclose{
+    float: right;
+    cursor: pointer;
+    background: url(actionbuttons.png) no-repeat -90px 0px;
+	width: 14px;
+	height: 14px;
+    margin-top: 3px;
+}
+
+.calendar .btnclose:hover{
+   background-position: -90px -20px;
+}
+
+.calendar .btnclose:active{
+   background-position: -90px -40px;
+}
+
+.vdf-ie .calendar .btnclose{
+    background-image: url(actionbuttons.gif);
+}
+
+/*
+   Year & month menus
+*/
+
+
+.calendar .btnmonth ul, .calendar .btnyear ul {
+   display: none;
+   list-style: none;
+   float: none;
+   position: absolute;
+   border: 1px solid #99BBE8;
+   background: #ffffff;
+   color: #466381;
+   cursor: pointer;
+   margin-top: 1px;
+   margin-left: -5px;
+   padding: 0;
+}
+
+.calendar .btnmonth li, .calendar .btnyear li {
+   float: none;
+   display: block;
+   padding: 1px 5px 1px 5px;
+   border-top: 1px solid transparent;
+   border-bottom: 1px solid transparent;
+}
+
+.calendar .btnmonth span{
+    display: block;
+    width: 63px;
+}
+
+.calendar .btnmonth ul{
+    width: 85px;
+}
+
+.calendar .btnyear span{
+    display: block;
+    width: 28px;
+}
+
+.calendar .btnyear ul{
+    width: 50px;
+}
+
+.calendar .btnyear li{
+   text-align: center;
+}
+
+.calendar .btnmonth li.current, .calendar .btnyear li.current {
+
+}
+
+.calendar .btnmonth li:hover, .calendar .btnyear li:hover {
+   background-color: #B1E6F8;
+   border-top: 1px solid #99BBE8;
+   border-bottom: 1px solid #99BBE8;
+}
+
+.calendar .btnyearup{
+   background: url(calendar.png) no-repeat center -100px;
+   height: 10px;
+}
+
+.calendar .btnyearup_down{
+   background: url(calendar.png) no-repeat center -120px;
+   height: 10px;
+}
+
+.calendar .btnyeardown{
+   background: url(calendar.png) no-repeat center -60px;
+   height: 10px;
+}
+
+.calendar .btnyeardown_down{
+   background: url(calendar.png) no-repeat center -80px;
+   height: 10px;
+}
+
+/*
+   Today bar
+*/
+
+.calendar .todaybarintern, .calendar .todaybarextern{
+   height: 16px;
+   text-align: center;
+}
+
+.calendar .todaybarintern span, .calendar .todaybarextern span{
+   cursor: pointer;   
+}
+
+.calendar .todaybarintern span:hover, .calendar .todaybarextern span:hover{
+   text-decoration: underline;      
+}
+
+.calendar .todaybarintern td, .calendar .todaybarextern td{
+    height: 16px;
+    border: none;
+    background-color: #EFFAFE;
+}
+
+.calendar .todaybarextern .left{
+   width: 6px;
+}
+.calendar .todaybarextern .right{
+   width: 6px;
+}
+
+/*
+   Content table
+*/
+
+.calendar .contentextern, .list .calendar .contentextern, .modaldialog .calendar .contentextern {
+    border: none;
+    border-bottom: 1px solid #99BBE8;
+    border-top: 1px solid #99BBE8;
+}
+
+
+/*
+   Day & header styles
+*/
+.calendar .bodytable td{
+   padding: 3px 2px 3px 2px;
+   border: 1px solid #FFFFFF;
+   text-align: center;
+   
+    width: 30px;
+
+}
+.calendar .bodytable .day{
+   cursor: pointer;
+   width: 25px;
+}
+
+.calendar .bodytable .day:hover{
+   text-decoration: underline;
+}
+
+.calendar .bodytable .weeknumber{
+    border-right: 1px solid #99BBE8;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.calendar .bodytable .header td{
+   font-weight: bold;
+   letter-spacing: 0px;
+}
+
+.calendar .bodytable .weekend{
+   background-color: #F3F7FA;
+   border: 1px solid #F3F7FA;
+}
+
+.calendar .bodytable .overflow{
+   color: #C2C7CA;
+}
+
+.calendar .bodytable .selected{
+    background-color: #F3F7FA;
+    border: 1px solid #99BBE8;
+}
+
+.calendar .bodytable .focussed{
+   background-color: #B1E6F8;
+}
+
+
+.calendar .bodytable .today{
+   font-weight: bold;
+}
+
+/*
+Popup calendar style
+
+Component:
+   vdf.gui.PopupCalendar
+*/
+
+.popupcalendar {
+   display: inline;
+   position: absolute;
+   background-color: #FFFFFF;
+}
+

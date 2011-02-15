@@ -1,0 +1,206 @@
+.modaldialog_mask{
+    position: fixed;
+    z-index: 900;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: black;
+    filter: alpha(opacity=40);
+    opacity: .4;
+}
+
+.modaldialog_dragmask {
+   position: fixed;
+   z-index: 920;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   padding: 0px;
+   margin: 0px;
+   background: #FFFFFF;
+   filter: alpha(opacity=0);
+   opacity: .0;
+   cursor: move;
+}
+
+
+.modaldialog  {
+    border: 0px none;
+    position: fixed;
+    z-index: 910;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    background: ;
+}
+
+.modaldialog table{
+	border: none;
+}
+
+.modaldialog .content {
+	border-right: 1px solid #747675;
+    border-left: 1px solid #747675;
+    background-color: #FFFFFF;
+}
+
+/*
+   Content styles
+*/
+
+.modaldialog .content .message{
+   padding-bottom: 10px;
+   padding-left: 20px;
+   padding-right: 20px;
+   padding-top: 10px;
+   min-width: 200px;
+   min-height: 50px;
+}
+
+.modaldialog .content .page{
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.modaldialog .content .dom, .modaldialog .content .html{
+   margin: 0px 0px 0px 0px;
+}
+
+/*
+	Title bar!
+*/
+.modaldialog .titlebar{
+	height: 30px;
+}
+
+.modaldialog .titlebar table{
+   width: 100%;
+}
+
+.modaldialog .titlebar .title{
+   color: #FFFFFF;
+   font-weight: bold;
+   background: url(ModalDialog/titlebar-background.png) repeat-x;
+   *background: url(ModalDialog/titlebar-background.gif) repeat-x;
+   text-transform: uppercase;
+}
+
+.modaldialog .titlebar .left{
+	width: 6px;
+	height: 30px;
+	background: url(ModalDialog/titlebar-left.png);
+    *background: url(ModalDialog/titlebar-left.gif);
+}
+
+.modaldialog .titlebar .right{
+	width: 6px;
+	height: 30px;
+	background: url(ModalDialog/titlebar-right.png);
+    *background: url(ModalDialog/titlebar-right.gif);
+}
+
+.modaldialog .titlebar .controls {
+	background: url(ModalDialog/titlebar-background.png) repeat-x;
+    *background: url(ModalDialog/titlebar-background.gif) repeat-x;
+	padding-left: 10px;
+	width: 1px;
+}
+
+.modaldialog .titlebar .controls .close{
+    background: url(ModalDialog/close.gif) no-repeat;
+	width: 15px;
+	height: 15px;
+}
+
+.modaldialog .titlebar .controls A:hover .close{
+	background: url(ModalDialog/close-hover.gif) no-repeat;
+	width: 15px;
+	height: 15px;
+}
+
+/*
+	Button bar
+*/
+
+.modaldialog .buttonbar table{
+   width: 100%;  
+}
+
+.modaldialog .buttonbar .left{
+	width: 6px;
+	height: 30px;
+	background: url(ModalDialog/buttonbar-left.png);
+    *background: url(ModalDialog/buttonbar-left.gif);
+}
+
+.modaldialog .buttonbar .right{
+	width: 6px;
+	height: 30px;
+	background: url(ModalDialog/buttonbar-right.png);
+    *background: url(ModalDialog/buttonbar-right.gif);
+}
+
+.modaldialog .buttonbar .buttons{
+   background: url(ModalDialog/buttonbar-background.png) repeat-x;
+   *background: url(ModalDialog/buttonbar-background.gif) repeat-x;
+   padding-left: 50px;
+}
+
+.modaldialog .buttonbar .buttons a{
+   background-position: 2px 1px;
+   background-repeat: no-repeat;
+   background-color: transparent;
+   padding-left: 20px;
+   margin-right: 20px;
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.modaldialog .buttonbar .buttons a:hover{
+    text-decoration: underline;
+}
+
+/*
+	Default buttons
+*/
+
+
+.modaldialog .buttonbar .buttons .btnClose{
+   background-image: url(ModalDialog/btnClose.gif);   
+}
+
+.modaldialog .buttonbar .buttons .btnSave{
+   background-image: url(ModalDialog/btnSave.gif);     
+}
+
+.modaldialog .buttonbar .buttons .btnOke{
+   background-image: url(ModalDialog/btnOke.gif);    
+}
+
+
+
+
+
+
+/*
+   LOOKUPDIALOG STYLE
+*/
+
+.modaldialog .content .lookupdialog form, .modaldialog .content .lookupdialog{
+   margin: 0px 0px 0px 0px;
+}
+
+.modaldialog .buttonbar .buttons .btnCancel{
+   background-image: url(ModalDialog/btnCancel.gif);   
+}
+
+.modaldialog .buttonbar .buttons .btnSearch{
+   background-image: url(ModalDialog/btnSearch.gif);  
+}
+
+.modaldialog .buttonbar .buttons .btnSelect{
+   background-image: url(ModalDialog/btnSelect.gif);   
+}

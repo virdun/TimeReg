@@ -1,0 +1,45 @@
+-----------------------------------------------------------------------------
+  DATE: 24-08-2010      TIME: 14:36                                  PAGE:  1
+  FILE DEFINITION FOR FILE: Session (# 210)
+-----------------------------------------------------------------------------
+  DRIVER NAME               : DATAFLEX
+  FILE ROOT NAME            : Session
+  USER DISPLAY NAME         : Session
+  DATAFLEX FILE NAME        : Session
+-----------------------------------------------------------------------------
+  RECORD LENGTH             : 128       ( USED: 125 )
+  MAX NUMBER OF RECORDS     : 9999999   ( USED: 28 )
+  FILE COMPRESSION          : NONE
+  RE-USE DELETED SPACE      : YES
+  LOCKING TYPE              : FILE
+  HEADER INTEGRITY CHECKING : YES
+  TRANSACTION TYPE          : CLIENT ATOMIC
+  RECORD IDENTITY INDEX     : 0 ( 0 , 0 )
+  FILE LOGIN PARAMETER      : 
+  SYSTEM FILE               : NO 
+-----------------------------------------------------------------------------
+
+NUM  FIELD NAME       TYPE SIZE  OFFST IX   RELATES TO FILE.FIELD
+---  ---------------  ---- ----- ----- --   ---------------------------------
+  1  SessionId        NUM    8.0     1  1   
+  2  SessionKey       ASC     64     5  2   
+  3  CreateDate       DAT      6    69  3   
+  4  CreateTime       ASC      8    72  3   
+  5  LastAccessDate   DAT      6    80      
+  6  LastAccessTime   ASC      8    83      
+  7  RemoteAddress    ASC     23    91      
+  8  UserId           NUM    8.0   114      
+  9  UseCount         NUM    8.0   118      
+ 10  CompanyId        NUM    8.0   122      
+
+
+INDEX# FIELDS          DES U/C    LENGTH LEVELS SEGMENTS MODE
+------ --------------- --- ---    ------ ------ -------- -------
+  1    SessionId       NO  NO       4      4       1     ON-LINE
+
+  2    SessionKey      NO  NO       64     9       1     ON-LINE
+
+  3    CreateDate      NO  NO       15     5       3     ON-LINE
+       CreateTime      NO  NO 
+       SessionId       NO  NO 
+

@@ -1,0 +1,4 @@
+#REPLACE FILE4 UserProj
+#REPLACE UserProj.Recnum |FN4,0
+#REPLACE UserProj.UserId |FN4,1
+#REPLACE UserProj.ProjectId |FN4,2

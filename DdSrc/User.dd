@@ -1,0 +1,55 @@
+Use  Windows.pkg           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  Ddvaltbl.pkg          // Validation Table Class Definitions
+
+Open User
+Open Ordsys
+Open Company
+Open TimeReg
+Open UserProj
+
+Class User_DataDictionary  is a DataDictionary
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To User.File_Number
+
+        Set Add_Server_File to Company.File_Number
+        
+        Set Cascade_Delete_State to False
+ 
+
+        Set Add_Client_File to TimeReg.File_Number
+        Set Add_Client_File to UserProj.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Add_System_File to Ordsys.File_Number DD_LOCK_ON_ALL
+
+        Set Field_Auto_Increment Field User.Userid to File_Field Ordsys.Userid
+
+        Set Field_Option Field User.LoginName DD_REQUIRED to True
+
+        Set Field_Option Field User.Password DD_REQUIRED to True
+
+        Set Field_Option Field User.FirstName DD_REQUIRED to True
+
+        Set Field_Option Field User.LastName DD_REQUIRED to True
+
+        Set Field_Option Field User.Mail DD_REQUIRED to True
+
+
+    End_Procedure    // Construct_Object
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+End_Class    // User_DataDictionary
+

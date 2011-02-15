@@ -1,0 +1,9 @@
+#REPLACE FILE3 TimeReg
+#REPLACE TimeReg.Recnum |FN3,0
+#REPLACE TimeReg.UserId |FN3,1
+#REPLACE TimeReg.ProjectId |FN3,2
+#REPLACE TimeReg.start_date |FD3,3
+#REPLACE TimeReg.start_time |FS3,4
+#REPLACE TimeReg.end_date |FD3,5
+#REPLACE TimeReg.end_time |FS3,6
+#REPLACE TimeReg.Comments |FS3,7

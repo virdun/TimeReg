@@ -1,0 +1,137 @@
+Use  Windows.pkg           // Basic Definitions
+Use  DataDict.pkg          // DataDictionary Class Definition
+Use  Ddvaltbl.pkg          // Validation Table Class Definitions
+
+Open Session
+Open Ordsys
+Open Project
+
+
+
+Class Session_DataDictionary  is a DataDictionary
+//
+    //  Called when record is created, sets the current date & time to the 
+    //  Create and LastAccess fields.
+    //
+    Procedure Creating
+        DateTime dtCurrentDateTime
+
+        Forward Send Creating
+        
+        //  Init usecounter
+        Move 0 to Session.UseCount
+        
+        //  Set the creation and access time to the current time
+        Move (CurrentDateTime()) To dtCurrentDateTime
+    
+        Get GetTimeString dtCurrentDateTime to Session.CreateTime
+        Get GetTimeString dtCurrentDateTime to Session.LastAccessTime
+        
+        Move dtCurrentDateTime to Session.CreateDate
+        Move dtCurrentDateTime to Session.LastAccessDate
+    End_Procedure   // Creating
+    
+    //
+    //  Called to update the AccessTime and AccessDate fields with the current
+    //  date & time.
+    //
+    Procedure RegisterAccess
+        Integer iError
+        DateTime dtCurrentDateTime
+        String sTimeString
+
+        //  Set the access time to the current time
+        Move (CurrentDateTime()) To dtCurrentDateTime
+        Get GetTimeString dtCurrentDateTime to sTimeString
+
+        Set Field_Changed_Value Field Session.LastAccessTime to sTimeString
+        Set Field_Changed_Value Field Session.LastAccessDate to dtCurrentDateTime
+        
+        //  Increment usecount
+        Set Field_Changed_Value Field Session.UseCount to (Session.UseCount + 1)
+        
+        Get Request_Validate to iError
+        If (iError = 0) Begin
+            Send Request_Save
+        End
+    End_Procedure
+    
+    //
+    //  Converts the given time to an string that can be saved in the database.
+    //
+    //  Params:
+    //      dtDateTime  Time to convert
+    //  Returns:
+    //      String with "HH:MM:SS" format
+    //
+    Function GetTimeString DateTime dtDateTime Returns String
+        String sHours sMinutes sSeconds
+        
+        //  Extract parts
+        Move (String(DateGetHour(dtDateTime))) to sHours
+        Move (String(DateGetMinute(dtDateTime))) to sMinutes
+        Move (String(DateGetSecond(dtDateTime))) to sSeconds
+        
+        //  Fill out with 0
+        If (Length(sHours) = 1) Move ("0" + sHours) to sHours
+        If (Length(sMinutes) = 1) Move ("0" + sMinutes) to sMinutes
+        If (Length(sSeconds) = 1) Move ("0" + sSeconds) to sSeconds
+        
+        Function_Return (sHours + ":" + sMinutes + ":" + sSeconds)
+    End_Function
+    
+    //
+    //  Sets the time of the datetime variable to the time in the string.
+    //
+    //  Params:
+    //      dtDateTime  Datetime variable to add time to
+    //      sTimeString String with time in the format "HH:MM:SS"
+    //  Returns:
+    //      dtDateTime with the loaded time
+    //
+    Function LoadTimeString DateTime dtDateTime String sTimeString Returns DateTime
+        String sHours sMinutes sSeconds
+        
+        //  Extract parts
+        Move (Mid(sTimeString, 2, 1)) to sHours
+        Move (Mid(sTimeString, 2, 4)) to sMinutes
+        Move (Mid(sTimeString, 2, 7)) to sSeconds
+        
+        //  Set to DateTime
+        Move (DateSetHour(dtDateTime, (Integer(sHours)))) to dtDateTime
+        Move (DateSetMinute(dtDateTime, (Integer(sMinutes)))) to dtDateTime
+        Move (DateSetSecond(dtDateTime, (Integer(sSeconds)))) to dtDateTime
+        
+        Function_Return dtDateTime
+    End_Function
+    
+    
+
+    Procedure Construct_Object
+        Forward Send Construct_Object
+
+
+        Set Main_File To Session.File_Number
+
+        Set Add_Client_File to Project.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_AUTOFIND to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Add_System_File to Ordsys.File_Number DD_LOCK_ON_ALL
+
+        Set Field_Auto_Increment Field Session.Sessionid to File_Field Ordsys.Sessionid
+
+
+    End_Procedure    // Construct_Object
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+    End_Procedure    // Field_Defaults
+
+End_Class    // Session_DataDictionary
+

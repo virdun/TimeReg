@@ -1,0 +1,89 @@
+/*
+The style definitions for the tabcontainer.
+
+Component:
+   vdf.gui.TabContainer
+*/
+
+.tabcontainer{
+   width: 100%;
+}
+
+/*
+   HEADER
+*/
+.tabcontainer .tabHeader{
+   height: 32px;
+   background: url(tabcontainer.gif) repeat-x 0px -160px;
+}
+
+.tabcontainer .tabHeader ul{
+   list-style: none;
+   padding: 0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px;
+   float: left;
+}
+
+/*
+   Buttons
+*/
+.tabcontainer .tabHeader li{
+   float: left;
+   margin: 0px 0px 0px 0px;
+   padding: 0px 0px 0px 4px;
+   /*background: url(TabContainer/tab_left.gif) no-repeat bottom left;*/
+   background: url(tabcontainer.gif) no-repeat left 0px;
+   text-align: center;
+}
+
+.tabcontainer .tabHeader a:focus{
+   text-decoration: underline;
+}
+
+.tabcontainer .tabHeader li:hover{
+    /*background: url(TabContainer/button-hover-left.gif) no-repeat left;*/
+    background: url(tabcontainer.gif) no-repeat left -40px;
+}
+
+
+.tabcontainer .tabHeader li a, .tabcontainer .tabHeader li a:hover, .tabcontainer .tabHeader li span{
+    display: block;
+    /*background: url(TabContainer/tab_background.gif) no-repeat right bottom;*/
+    background: url(tabcontainer.gif) no-repeat right 0px;
+    padding: 14px 10px 8px 3px;
+    color: #FFFFFF;
+    text-align: center;
+    min-width: 80px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tabcontainer .tabHeader li.active a, .tabcontainer .tabHeader li.active a:hover, .tabcontainer .tabHeader li.active span{
+   /*background: url(TabContainer/tab_active_background.gif) no-repeat right bottom;*/
+   background: url(tabcontainer.gif) no-repeat right -80px;
+   color: #FFFFFF;
+   text-decoration: none;
+}
+
+.tabcontainer .tabHeader li.active{
+   /*background: url(TabContainer/tab_active_left.gif) no-repeat bottom left;*/
+   background: url(tabcontainer.gif) no-repeat left -80px;
+}
+
+
+/*
+   Container
+*/
+.tabcontainer .container{
+    border: 1px solid #878787;
+    border-top: 0px;
+    vertical-align: top;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.tabcontainer .container div.tabcontent{
+   visibility: none;
+   padding: 10px;
+   margin: 0px 0px 0px 0px;
+}

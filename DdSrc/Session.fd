@@ -1,0 +1,12 @@
+#REPLACE FILE210 Session
+#REPLACE Session.Recnum |FN210,0
+#REPLACE Session.SessionId |FN210,1
+#REPLACE Session.SessionKey |FS210,2
+#REPLACE Session.CreateDate |FD210,3
+#REPLACE Session.CreateTime |FS210,4
+#REPLACE Session.LastAccessDate |FD210,5
+#REPLACE Session.LastAccessTime |FS210,6
+#REPLACE Session.RemoteAddress |FS210,7
+#REPLACE Session.UserId |FN210,8
+#REPLACE Session.UseCount |FN210,9
+#REPLACE Session.CompanyId |FN210,10

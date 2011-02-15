@@ -1,0 +1,99 @@
+/*
+The style definitions for the tabcontainer.
+
+Component:
+   vdf.gui.TabContainer
+*/
+
+.tabcontainer{
+   width: 100%;
+   border: 1px solid #99BBE8;
+   padding: 0px;
+   margin: 10px 0px 0px 0px;
+}
+
+/*
+   HEADER
+*/
+.tabcontainer .tabHeader{
+   height: 24px;
+   background: url(tabcontainer.gif) repeat-x 0px -120px;
+}
+
+.tabcontainer .tabHeader ul{
+   list-style: none;
+   padding: 0px 0px 0px 5px;
+   margin: 0px 0px 0px 0px;
+   float: left;
+}
+
+/*
+   Buttons
+*/
+.tabcontainer .tabHeader li{
+   float: left;
+   margin: 0px 0px 0px 3px;
+   padding: 0px 0px 0px 3px;
+   /*background: url(TabContainer/button-normal-left.gif) no-repeat left;*/
+   background: url(tabcontainer.gif) no-repeat left 0px;
+   text-align: center;
+}
+
+.tabcontainer .tabHeader a:focus{
+   text-decoration: underline;
+}
+
+.tabcontainer .tabHeader li:hover{
+    /*background: url(TabContainer/button-hover-left.gif) no-repeat left;*/
+    background: url(tabcontainer.gif) no-repeat left -30px;
+}
+
+
+.tabcontainer .tabHeader li a, .tabcontainer .tabHeader li a:hover, .tabcontainer .tabHeader li span{
+   display: block;
+   /*background: url(TabContainer/button-normal-right.gif) no-repeat right;*/
+   background: url(tabcontainer.gif) no-repeat right 0px;
+   padding: 8px 3px 0px 0px;
+   color: #155A9D;
+   text-align: center;
+   min-width: 74px;
+   cursor: pointer;
+   height: 16px;
+   text-decoration: none;
+}
+
+.vdf-ie6 .tabcontainer .tabHeader li a, .vdf-ie6 .tabcontainer .tabHeader li span{
+    width: 80px;
+}
+
+.tabcontainer .tabHeader li:hover a, .tabcontainer .tabHeader li :hover span{
+    /*background: url(TabContainer/button-hover-right.gif) no-repeat right;*/
+    background: url(tabcontainer.gif) no-repeat right -30px;
+}
+
+.tabcontainer .tabHeader li.active{
+   /*background: url(TabContainer/button-selected-left.gif) no-repeat left;*/
+   background: url(tabcontainer.gif) no-repeat left -60px;
+}
+
+.tabcontainer .tabHeader li.active a, .tabcontainer .tabHeader li.active a:hover, .tabcontainer .tabHeader li.active span{
+   /*background: url(TabContainer/button-selected-right.gif) no-repeat right;*/
+   background: url(tabcontainer.gif) no-repeat right -60px;
+}
+
+/*
+   Container
+*/
+.tabcontainer .container{
+    background-color: #EFFAFE;
+    border-top: 0px;
+    vertical-align: top;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.tabcontainer .container div.tabcontent{
+   visibility: none;
+   padding: 10px;
+   margin: 0px 0px 0px 0px;
+}

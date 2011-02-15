@@ -1,0 +1,16 @@
+/*
+    Login.css
+*/
+
+.mainlogin{
+    visibility: hidden;
+}
+#loading{
+    height: 19px;
+}
+#actions{
+    height: 19px;
+}
+#username{
+	font-weight: bold;
+}

@@ -1,0 +1,59 @@
+/*
+The style definitions of the balloon which is an absolute positioned 3x3 table.
+
+Component:
+   vdf.gui.Balloon
+*/
+.balloon{
+    position: absolute;
+    border: none;
+}
+
+table.balloon  td{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: none;
+}
+
+.balloon .topleft{
+    background: url(balloon-vert.png) no-repeat 0px 0px;
+    width: 22px;
+    height: 15px;
+}
+.balloon .topmid{
+    background: url(balloon-vert.png) repeat-x 0px -20px;
+    height: 15px;
+}
+.balloon .topright{
+    background: url(balloon-vert.png) no-repeat 0px -40px;
+    width: 27px;
+    height: 15px;
+    border: 0px none #FFFFFF;
+}
+
+.balloon .midleft{
+    background: url(balloon-hori.png) repeat-y 0px 0px;
+    width: 22px;
+}
+.balloon .bln_content{
+    background-color: #FFFFFF;
+    padding: 2px 0px 2px 0px;
+}
+.balloon .midright{
+    background: url(balloon-hori.png) repeat-y -20px 0px;
+    width: 27px;
+}
+.balloon .bottomleft{
+    background: url(balloon-vert.png) no-repeat 0px -60px;
+    width: 22px;
+    height:12px;
+}
+.balloon .bottommid{
+    background: url(balloon-vert.png) repeat-x 0px -80px;
+    height: 12px;
+}
+.balloon .bottomright{
+    background: url(balloon-vert.png) repeat-x 0px -100px;
+    width: 27px;
+    height: 12px;
+}

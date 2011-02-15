@@ -1,0 +1,235 @@
+.modaldialog_mask{
+    position: fixed;
+    z-index: 900;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: black;
+    filter: alpha(opacity=60);
+    opacity: .6;
+}
+
+.modaldialog_dragmask {
+   position: fixed;
+   z-index: 920;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   padding: 0px;
+   margin: 0px;
+   background: #FFFFFF;
+   filter: alpha(opacity=0);
+   opacity: .0;
+   cursor: move;
+}
+
+
+.modaldialog  {
+    border: 1px solid #99BBE8;
+    position: fixed;
+    z-index: 910;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    background-color: #EFFAFE;
+    
+}
+
+.modaldialog table{
+	border: none;
+}
+
+.modaldialog .content {
+    padding: 7px 17px 7px 17px;
+}
+
+/*
+   Content styles
+*/
+
+.modaldialog .content .message{
+   min-width: 200px;
+   min-height: 30px;
+}
+
+.modaldialog .content .message span{
+    white-space: nowrap;
+}
+
+.modaldialog .content .vdfMsgDetails{
+    margin-top: 20px;
+    min-width: 300px;
+}
+
+.vdf-ie .modaldialog .content .vdfMsgDetails div div{
+    width: 800px;
+    height: 200px;
+}
+
+.modaldialog .content .vdfMsgDetails div div{
+    min-width: 300px;
+    max-width: 1000px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 5px 5px 5px 5px;
+    color: #000000;
+}
+
+.modaldialog .content .page{
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.modaldialog .content .dom, .modaldialog .content .html{
+   margin: 0px 0px 0px 0px;
+}
+
+/*
+	Title bar!
+*/
+.modaldialog .titlebar{
+
+}
+
+.modaldialog .titlebar table{
+   width: 100%;
+}
+
+.modaldialog .titlebar .title, .modaldialog .titlebar .left, .modaldialog .titlebar .right, .modaldialog .titlebar .controls {
+    margin: 0px;
+    padding: 0px;
+    height: 22px;
+    background: url(default-bar.gif) repeat-x;
+    border-bottom: 1px solid #99BBE8;
+}
+.vdf-mozilla .modaldialog .titlebar td, .vdf-opera .modaldialog .titlebar td{
+    height: 24px;
+}
+
+.modaldialog .titlebar .title{
+    font-size: 12px;
+}
+
+.modaldialog .titlebar .left{
+	width: 6px;
+}
+
+.modaldialog .titlebar .right{
+	width: 6px;
+}
+
+.modaldialog .titlebar .controls {
+	padding-left: 10px;
+	width: 1px;
+    padding-top: 1px;
+}
+
+
+
+
+.modaldialog .titlebar .controls .close{
+    background: url(actionbuttons.png) no-repeat;
+    background-position: -90px 0px;
+	width: 14px;
+	height: 14px;
+}
+.modaldialog .titlebar .controls A:active .close, .modaldialog .titlebar .controls A:focus .close{
+    background-position: -90px -40px;
+}
+.modaldialog .titlebar .controls A:hover .close{
+    background-position: -90px -20px;
+}
+.vdf-ie .modaldialog .titlebar .controls .close{
+    background-image: url(actionbuttons.gif);
+}
+
+/*
+	Button bar
+*/
+
+.modaldialog .buttonbar table{
+   width: 100%;  
+}
+
+.modaldialog .buttonbar .left{
+    width: 6px;
+}
+
+.modaldialog .buttonbar .right{
+    width: 6px;
+}
+
+.modaldialog .buttonbar .buttons{
+    padding: 5px 5px 6px 5px;
+}
+
+.modaldialog .buttonbar .buttons a{
+    border: 1px solid #9FBEEA;
+    color: #000000;
+    margin-right: 3px;
+    margin-left: 3px;
+    padding: 2px 6px 2px 6px;
+    height: 17px;
+    text-decoration: none;
+    background: url(button.gif) repeat-x;
+    background-color: #F7F7F7;
+}
+.modaldialog .buttonbar .buttons a:hover, .modaldialog .buttonbar .buttons a:focus {
+    background-position: 0px -20px;
+    text-decoration: none;
+    background-color: #A2D1EB;
+}
+.modaldialog .buttonbar .buttons a:active {
+    background-position: 0px -40px;
+    background-color: #A2D1EB;
+}
+.modaldialog .buttonbar .buttons a[disabled] {
+    background-position: 0px -60px;
+    background-color: #F7F7F7;
+}
+
+/*
+	Default buttons
+*/
+
+
+.modaldialog .buttonbar .buttons .btnClose{
+
+}
+
+.modaldialog .buttonbar .buttons .btnSave{
+
+}
+
+.modaldialog .buttonbar .buttons .btnOke{
+
+}
+
+
+
+
+
+
+/*
+   LOOKUPDIALOG STYLE
+*/
+
+.modaldialog .content .lookupdialog form, .modaldialog .content .lookupdialog{
+   margin: 0px 0px 0px 0px;
+}
+
+.modaldialog .buttonbar .buttons .btnCancel{
+
+}
+
+.modaldialog .buttonbar .buttons .btnSearch{
+
+}
+
+.modaldialog .buttonbar .buttons .btnSelect{
+
+}

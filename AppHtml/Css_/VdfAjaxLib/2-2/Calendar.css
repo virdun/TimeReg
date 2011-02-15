@@ -1,0 +1,305 @@
+.calendar{
+   min-width: 200px;
+}
+
+/*
+   Titlebar
+*/
+
+.calendar .titlebarintern{
+   background: url(modaldialog.gif) repeat-x 0px -120px;
+   height: 30px;
+   border: 0px;
+}
+.calendar .titlebarintern td{
+   height: 30px;
+   border: 0px;
+}
+
+.calendar .titlebarextern{
+   height: 30px;
+}
+
+.calendar .titlebarextern td{
+   background: url(modaldialog.gif) repeat-x 0px -80px;
+   height: 30px;
+}
+
+.calendar .titlebarextern .left{
+   width: 6px;
+   background: url(modaldialog.gif) no-repeat left 0px;
+}
+
+.calendar .titlebarextern .right{
+   width: 6px;
+   background: url(modaldialog.gif) no-repeat right -40px;
+}
+
+/*
+   Buttons
+*/
+
+.CalendarButton {
+    cursor: pointer;
+    vertical-align: top;
+    margin-left: 0px;
+    width: 27px;
+    height: 17px;
+    background: url(actionbuttons.png) no-repeat -30px 0px;
+    border: 0px solid black;
+}
+.CalendarButton:hover{
+    background-position: -30px -20px;
+}
+.CalendarButton:active{
+    background-position: -30px -40px;
+}
+.CalendarButton[disabled]{
+    background-position: -30px -60px;
+}
+.vdf-ie6 .CalendarButton{
+    background-image: url(actionbuttons.gif);
+}
+
+.calendar .btnprevious{
+   float: left;
+   background: url(calendar.gif) no-repeat center -40px;
+   width: 14px;
+   height: 14px;
+   margin-left: 8px;
+   cursor: pointer;
+}
+
+.calendar .btnprevious:hover{
+   background-position: center -60px;
+}
+
+.calendar .btnnext{
+    float: left;
+    background: url(calendar.gif) no-repeat center 0px;
+    width: 14px;
+    height: 14px;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.calendar .btnnext:hover{
+    background-position: center -20px;
+}
+
+.calendar .btnclose{
+    float: right;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background: url(actionbuttons.png) no-repeat -90px 0px;
+}
+.calendar .btnclose:hover{
+    background-position: -90px -20px;
+}
+.calendar .btnclose:active{
+    background-position: -90px -40px ;
+}
+.vdf-ie6 .calendar .btnclose{
+    background-image: url(actionbuttons.gif);
+}
+
+
+/*
+   Year & month menus
+*/
+.calendar .btnmonth, .calendar .btnyear{
+   float: left;
+   margin-left: 10px;
+  
+}
+
+.calendar .btnmonth span, .calendar .btnyear span{
+   background: url(calendar.gif) no-repeat right -80px;
+   padding-right: 12px;
+   cursor: pointer;
+   display: block;
+   color: white;
+}
+
+.calendar .btnmonth span:hover, .calendar .btnyear span:hover{
+   color: #A8ADB1;
+   background-position: right -100px;
+}
+
+.calendar .btnmonth ul, .calendar .btnyear ul {
+   display: none;
+   list-style: none;
+   float: none;
+   position: absolute;
+   border: 1px solid #a0a0a0; 
+   background: #ffffff;
+   color: #466381;
+   cursor: pointer;
+   margin-left: 2px;
+   margin-right: 2px;
+   margin-top: 1px;
+   padding: 0;
+}
+
+.calendar .btnmonth li, .calendar .btnyear li {
+   float: none;
+   display: block;
+   padding: 1px 5px 1px 5px;
+   border-top: 1px solid transparent;
+   border-bottom: 1px solid transparent;
+}
+
+.clanedar .btnyear li{
+   text-align: center;
+}
+
+.calendar .btnmonth li.current, .calendar .btnyear li.current {
+   background-color:  #B2C0CD;
+}
+
+.calendar .btnmonth li:hover, .calendar .btnyear li:hover {
+   background-color: #CEE4FC;
+   border-top: 1px solid #B2C0CD;
+   border-bottom: 1px solid #B2C0CD;
+}
+
+
+.calendar .btnyearup{
+    background: url(calendar.gif) no-repeat center -160px;
+   height: 10px;
+   width: 30px;
+}
+
+.calendar .btnyearup_down{
+    background: url(calendar.gif) no-repeat center -180px;
+   height: 10px;
+   width: 30px;
+}
+
+.calendar .btnyeardown{
+    background: url(calendar.gif) no-repeat center -120px;
+   height: 10px;
+   width: 30px;
+}
+
+.calendar .btnyeardown_down{
+    background: url(calendar.gif) no-repeat center -140px;
+   height: 10px;
+   width: 30px;
+}
+
+/*
+   Today bar
+*/
+
+.calendar .todaybarintern, .calendar .todaybarextern{
+   height: 30px;
+   text-align: center;
+   color: white;
+}
+
+.calendar .todaybarintern span, .calendar .todaybarextern span{
+   cursor: pointer;   
+}
+
+.calendar .todaybarintern span:hover, .calendar .todaybarextern span:hover{
+   text-decoration: underline;      
+}
+
+.calendar .todaybarintern td{
+    background: url(modaldialog.gif) repeat-x 0px -280px;
+    height: 30px;
+}
+
+.calendar .todaybarextern td{
+    background: url(modaldialog.gif) repeat-x 0px -240px;
+    height: 30px;
+}
+
+.calendar .todaybarextern .left{
+    background: url(modaldialog.gif) no-repeat left -160px;
+    width: 6px;
+}
+.calendar .todaybarextern .right{
+    background: url(modaldialog.gif) no-repeat right -200px;
+    width: 6px;
+}
+
+/*
+   Content table
+*/
+
+.calendar .contentextern {
+ 	border-right: 1px solid #747675;
+    border-left: 1px solid #747675;
+}
+
+
+/*
+   Day & header styles
+*/
+.calendar .bodytable td{
+   padding: 2px;
+   border-left: 1px solid white;
+   border-right: 1px solid white;
+   text-align: center;
+}
+.calendar .bodytable .day{
+   cursor: pointer;
+   width: 25px;
+}
+
+.calendar .bodytable .day:hover{
+   text-decoration: underline;
+}
+
+.calendar .bodytable .weeknumber{
+    border-right: 1px solid #CCCCCE;
+    width: 24px;
+}
+
+.calendar .bodytable .header td{
+   font-weight: bold;
+   letter-spacing: -1px;
+}
+
+.calendar .bodytable .weekend{
+   border: 1px solid #F2F2F2;
+   background-color: #F2F2F2;
+}
+
+.calendar .bodytable .overflow{
+   color: #C4CACE;
+}
+
+.calendar .bodytable .selected{
+   border: 1px solid black;
+   background-color: #86C1ED;
+   color: white;
+}
+
+.calendar .bodytable .focussed{
+   border: 1px solid black;
+   background-color: #6FA2C4;
+   color: white;
+}
+
+
+.calendar .bodytable .today{
+   font-weight: bold;
+}
+
+/*
+Popup calendar style
+
+Component:
+   vdf.gui.PopupCalendar
+*/
+
+.popupcalendar {
+   display: inline;
+   position: absolute;
+   background-color: #FFFFFF;
+}
+

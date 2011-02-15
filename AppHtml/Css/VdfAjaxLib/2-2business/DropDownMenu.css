@@ -1,0 +1,178 @@
+/*
+    vdf.gui.DropDownMenu
+*/
+
+/*
+Main
+*/
+.DropDownMenu, .DropDownMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.DropDownMenu li.firstli, .DropDownMenu li.lastli{
+    width: 0px;
+    margin: 0;
+    z-index: inherit;
+}
+
+.DropDownMenu li{
+    float: left;
+    height: 26px;
+    _width: 100px;
+    margin: 0;
+    padding: 0;
+    color: #14438B;
+    border: 1px solid #F7FBFE;
+}
+
+.DropDownMenu li a{
+    display: block;
+    text-decoration: none;
+    color: #14438B;
+    padding-top: 6px; 
+    padding-right: 8px;
+    padding-left: 8px;
+    height: 20px;
+}
+.DropDownMenu ul li ul li.noSub a{
+}
+.DropDownMenu ul li ul li.hasSub a{
+}
+
+.DropDownMenu li:hover, .DropDownMenu li.hover{
+    background: url(dropdown.png) repeat-x 0px 0px;
+    border: 1px solid #7C9ABE;
+}
+
+.DropDownMenu li.middleli {
+    _width: 20px;
+    background: none;
+}
+
+/*
+Level 1
+*/
+.DropDownMenu li ul {
+    display: none;
+    position: absolute;
+    margin: 0px 0px 0px -1px;
+    border: 1px solid #7C9ABE;
+}
+
+.DropDwonMenu li ul li{
+    filter: alpha(opacity=90);
+    opacity: .9;
+    background-color: #FFFFFF;
+}
+.DropDownMenu li:hover ul, .DropDownMenu li.hover ul{
+    display: block;
+}
+.DropDownMenu li.hasSub ul li{
+    float: none;
+    filter: alpha(opacity=90);
+    opacity: .9;
+    background-color: #FFFFFF;
+    border: none;
+    border-bottom: 1px solid #7C9ABE;
+    height: 26px;
+}
+.DropDownMenu li.hasSub ul li a{
+    min-width: 160px;
+    _width: 160px;
+    padding-right: 15px;
+}
+.DropDownMenu li.hasSub ul li.hasSub a{
+    background: url(dropdown.png) no-repeat right -30px;
+}
+.DropDownMenu li ul li, .DropDownMenu li ul li{
+}
+.DropDownMenu li ul li:hover, .DropDownMenu li ul li.hover{
+    background: #76D3F2;
+}
+.DropDownMenu li ul li.isFirst{
+   border-top: none;
+}
+.DropDownMenu li ul li.isLast{
+   border-bottom: none;
+}
+
+.vdf-ie .DropDownMenu li.hasSub ul li.hasSub a,
+    .vdf-ie .DropDownMenu li:hover, .vdf-ie .DropDownMenu li.hover{
+    background-image: url(dropdown.gif);
+}
+
+.DropDownMenu li.hasSub ul li.noSub a, .vdf-ie .DropDownMenu li.hasSub ul li.noSub a{
+    background: none;
+}
+
+
+/*
+Level 2
+*/
+
+.DropDownMenu li:hover ul li ul, .DropDownMenu li.hover ul li ul{
+    display: none;
+}
+
+.DropDownMenu li ul li ul{
+    margin: 0px;
+    padding: 0px;
+    margin-left: 183px;
+    margin-top: -27px;
+}
+
+.DropDownMenu li:hover ul li:hover ul, .DropDownMenu li.hover ul li.hover ul{
+    display: block;
+}
+
+
+/*
+Level 3
+*/
+
+.DropDownMenu li:hover ul li:hover ul li ul, .DropDownMenu li.hover ul li.hover ul li ul{
+    display: none;
+}
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul, .DropDownMenu li.hover ul li.hover ul li.hover ul{
+    display: block;
+}
+
+/*
+Level 4
+*/
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li ul{
+    display: none;
+}
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li:hover ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li.hover ul{
+    display: block;
+}
+
+/*
+Level 5
+*/
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li:hover ul li ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li.hover ul li ul{
+    display: none;
+}
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li:hover ul li:hover ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li.hover ul li.hover ul{
+    display: block;
+}
+
+
+/*
+Level 6
+*/
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li:hover ul li:hover ul li ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li.hover ul li.hover ul li ul{
+    display: none;
+}
+
+.DropDownMenu li:hover ul li:hover ul li:hover ul li:hover ul li:hover ul li:hover ul, .DropDownMenu li.hover ul li.hover ul li.hover ul li.hover ul li.hover ul li.hover ul{
+    display: block;
+}

@@ -1,0 +1,6 @@
+#REPLACE FILE2 Project
+#REPLACE Project.Recnum |FN2,0
+#REPLACE Project.ProjectId |FN2,1
+#REPLACE Project.name |FS2,2
+#REPLACE Project.CompanyId |FN2,3
+#REPLACE Project.CustomerId |FN2,4

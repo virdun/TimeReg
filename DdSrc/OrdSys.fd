@@ -1,0 +1,7 @@
+#REPLACE FILE5 OrdSys
+#REPLACE OrdSys.Recnum |FN5,0
+#REPLACE OrdSys.CUST_NUMBER |FN5,1
+#REPLACE OrdSys.SessionId |FN5,2
+#REPLACE OrdSys.UserId |FN5,3
+#REPLACE OrdSys.CompanyId |FN5,4
+#REPLACE OrdSys.ProjectId |FN5,5

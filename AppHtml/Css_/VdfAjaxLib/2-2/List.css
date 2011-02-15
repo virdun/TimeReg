@@ -1,0 +1,151 @@
+
+/*
+   LIST STYLE
+*/
+
+.list {
+   border-left: 1px solid #DAE3EC;
+}
+
+.list td, .list th{
+   border-right: 1px solid #DAE3EC;
+}
+
+.list .rowheader{
+    background: url(list.png) repeat-x 0px 0px;
+    height: 30px;
+}
+
+.list .rowheader th{
+   color: #FFFFFF;
+   height: 30px;
+   font-weight: normal;
+   padding-left: 5px;
+}
+
+.list .rowempty td, .list .rowdisplay td{
+   height: 21px;
+   padding-left: 10px;   
+   padding-right: 10px;
+}
+
+.list .rowedit td{
+    height: 21px;
+}
+
+.list .rowdisplay{
+   cursor: pointer;
+}
+
+.list .rowodd{
+   background-color: #CEE4FC;
+}
+
+.list .rowempty{
+}
+
+.list .rowheader .headerindex, .list .rowheader .headerselected, .list .rowheader .headerreversed{
+   text-decoration: underline;
+   padding-right: 11px;
+   cursor: pointer;
+}
+
+.list .rowheader .headerindex div, .list .rowheader .headerselected div, .list .rowheader .headerreversed div{
+   padding-right: 15px;
+}
+
+.list .rowheader .headerselected div{
+    background: url(list.png) no-repeat right -40px;
+}
+
+.list .rowheader .headerreversed div{
+    background: url(list.png) no-repeat right -70px;
+}
+
+.list_loading{
+   position: absolute;
+   background: transparent url(loading_big.gif) no-repeat center;
+
+}
+
+
+/*
+   LOOKUP STYLE
+*/
+
+.list tr.rowselected {
+    background-color: #86C1ED;
+}
+.list tr.rowselected .bcd_data, .list tr.rowselected .ascii_data, .list tr.rowselected .date_data, .list tr.rowselected .text_data{
+    color: #FFFFFF;
+}
+
+.list .focussed tr.rowselected{
+   background-color: #6FA2C4;
+}
+
+/*
+   GRID STYLE
+*/
+
+.list tr.rowedit {
+    color: #000000;   
+}
+
+.list .rowedit input, .list .rowdisplay input{
+    padding-left: 8px;
+    *padding-left: 9px;
+    padding-right: 8px;
+    *padding-right: 9px;
+}
+/*
+
+.list .rowedit input[type="text"], .list .rowedit select{
+    border: 1px solid #00A1E2;
+}
+*/
+.list .rowedit select, .list .rowdisplay select {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.list .DeleteButton {
+    background: url(list.png) no-repeat center -100px;
+    width: 20px;
+    height: 13px;
+    border: 0px solid #FFFFFF;
+    cursor: pointer;
+}
+.list .DeleteButton:hover {
+    background-position: center -120px;
+}
+.list .DeleteButton:active {
+    background-position: center -140px;
+}
+.list .DeleteButton[disabled] {
+    background-position: center -160px;
+    cursor: default;
+}
+
+.list .rowedit .DeleteButton{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.list .rowempty .DeleteButton{
+    display: none;
+}
+
+/*
+Under IE we still prefer to use GIF over PNG.
+*/
+.vdf-ie .list .rowheader th, 
+    .vdf-ie .list .rowheader .headerindex, 
+    .vdf-ie .list .rowheader .headerselected,
+    .vdf-ie .list .rowheader .headerselected div, 
+    .vdf-ie .list .rowheader .headerreversed, 
+    .vdf-ie .list .rowheader .headerreversed div, 
+    .vdf-ie .list .DeleteButton, 
+    .vdf-ie .list .rowedit .DeleteButton{
+    background-image: url(list.gif);
+}

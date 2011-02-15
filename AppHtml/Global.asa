@@ -1,0 +1,88 @@
+<OBJECT RUNAT=Server SCOPE=Session ID=WebAppServerSession PROGID="WebAppServer.Session.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oCustomer PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oCustomerReport PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oDayReport PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oHoursEdit PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oProject PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oProjectsDetailsInterface PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oRegEditASP PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oRegister PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oSessionManager PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=otemp1 PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oTimeReport PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oUser PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oUserProj PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oUserReport PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<OBJECT RUNAT=Server SCOPE=Session ID=oUserTest PROGID="WebAppServer.WebBusinessProcess.16.0">
+</OBJECT>
+
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+SUB Session_OnStart
+    WebAppServerSession.PageScopedSession=True
+    WebAppServerSession.Initialize("timer")
+    oCustomer.Name="oCustomer"
+    oCustomerReport.Name="oCustomerReport"
+    oDayReport.Name="oDayReport"
+    oHoursEdit.Name="oHoursEdit"
+    oProject.Name="oProject"
+    oProjectsDetailsInterface.Name="oProjectsDetailsInterface"
+    oRegEditASP.Name="oRegEditASP"
+    oRegister.Name="oRegister"
+    oSessionManager.Name="oSessionManager"
+    otemp1.Name="otemp1"
+    oTimeReport.Name="oTimeReport"
+    oUser.Name="oUser"
+    oUserProj.Name="oUserProj"
+    oUserReport.Name="oUserReport"
+    oUserTest.Name="oUserTest"
+    Session.Timeout=1
+
+    ' This defines the style to be used through out the application.
+    'Session("Style")="css/WebApp.css"
+End SUB
+</SCRIPT>
+
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+SUB Application_OnStart
+End SUB
+</SCRIPT>
+
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+SUB Application_OnEnd
+End SUB
+</SCRIPT>
+
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+SUB Session_OnEnd
+End SUB
+</SCRIPT>

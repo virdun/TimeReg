@@ -1,0 +1,41 @@
+-----------------------------------------------------------------------------
+  DATE: 10-06-2010      TIME: 15:26                                  PAGE:  1
+  FILE DEFINITION FOR FILE: event (# 9)
+-----------------------------------------------------------------------------
+  DRIVER NAME               : DATAFLEX
+  FILE ROOT NAME            : event.dat
+  USER DISPLAY NAME         : event
+  DATAFLEX FILE NAME        : event
+-----------------------------------------------------------------------------
+  RECORD LENGTH             : 384       ( USED: 348 )
+  MAX NUMBER OF RECORDS     : 10000     ( USED: 7 )
+  FILE COMPRESSION          : NONE
+  RE-USE DELETED SPACE      : YES
+  LOCKING TYPE              : FILE
+  HEADER INTEGRITY CHECKING : YES
+  TRANSACTION TYPE          : CLIENT ATOMIC
+  RECORD IDENTITY INDEX     : 0 ( 0 , 0 )
+  FILE LOGIN PARAMETER      : 
+  SYSTEM FILE               : NO 
+-----------------------------------------------------------------------------
+
+NUM  FIELD NAME       TYPE SIZE  OFFST IX   RELATES TO FILE.FIELD
+---  ---------------  ---- ----- ----- --   ---------------------------------
+  1  id               NUM    6.0     1  1   
+  2  title            ASC     50     4      
+  3  text             TEX    272    54      
+  4  start_date       DAT      6   326      
+  5  end_date         DAT      6   329      
+  6  start_time       ASC      5   332      
+  7  end_time         ASC      5   337      
+  8  user_id          NUM    8.0   342      User.FIELD_1 (220,1)
+  9  customer_id      NUM    6.0   346  2   CUSTOMER.FIELD_1 (25,1)
+
+
+INDEX# FIELDS          DES U/C    LENGTH LEVELS SEGMENTS MODE
+------ --------------- --- ---    ------ ------ -------- -------
+  1    id              NO  NO       3      2       1     ON-LINE
+
+  2    customer_id     NO  NO       6      3       2     ON-LINE
+       Recnum          NO  NO 
+

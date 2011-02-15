@@ -1,0 +1,26 @@
+-----------------------------------------------------------------------------
+  DATE: 24-06-2010      TIME: 15:03                                  PAGE:  1
+  FILE DEFINITION FOR FILE: Company (# 1)
+-----------------------------------------------------------------------------
+  DRIVER NAME               : DATAFLEX
+  FILE ROOT NAME            : Company
+  USER DISPLAY NAME         : Company
+  DATAFLEX FILE NAME        : Company
+-----------------------------------------------------------------------------
+  RECORD LENGTH             : 25        ( USED: 25 )
+  MAX NUMBER OF RECORDS     : 10000     ( USED: 0 )
+  FILE COMPRESSION          : NONE
+  RE-USE DELETED SPACE      : YES
+  LOCKING TYPE              : FILE
+  HEADER INTEGRITY CHECKING : YES
+  TRANSACTION TYPE          : CLIENT ATOMIC
+  RECORD IDENTITY INDEX     : 0 ( 0 , 0 )
+  FILE LOGIN PARAMETER      : 
+  SYSTEM FILE               : NO 
+-----------------------------------------------------------------------------
+
+NUM  FIELD NAME       TYPE SIZE  OFFST IX   RELATES TO FILE.FIELD
+---  ---------------  ---- ----- ----- --   ---------------------------------
+  1  id               NUM   10.0     1      
+  2  name             ASC     20     6      
+

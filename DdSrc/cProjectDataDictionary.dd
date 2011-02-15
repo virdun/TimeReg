@@ -1,0 +1,33 @@
+Use DataDict.pkg
+
+Open Project
+Open TimeReg
+Open UserProj
+Open CUSTOMER
+Open OrdSys
+
+Class cProjectDataDictionary is a DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_file to Project.File_Number
+
+        Set Add_System_File to OrdSys.File_Number DD_Lock_On_All
+
+        Set Add_Server_File to CUSTOMER.File_Number
+
+        Set Add_Client_File to TimeReg.File_Number
+        Set Add_Client_File to UserProj.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Field_Auto_Increment Field Project.ProjectId to File_Field OrdSys.ProjectId
+
+        Set Field_Option Field Project.name DD_REQUIRED to True
+
+    End_Procedure
+
+End_Class

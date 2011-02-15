@@ -1,0 +1,7 @@
+[WebService]
+Application=timer
+Object=oWebService
+ServicePageGenerator=DefaultWebServiceHomePage.xslt
+TestPageGenerator=DefaultWebServiceMethodPage.xslt
+WSDLGenerator=DefaultWebServiceDescription.xslt
+SoapBodyStyle=document

@@ -1,0 +1,285 @@
+.vdfform textarea, .vdfform input, .vdfform select, .vdfform .bcd_data, .vdfform .ascii_data, .vdfform .date_data, .vdfform .text_data, .vdfform .EntryTable .Label, .boxcontainer .boxcontent{
+    font-family: "Lucida Sans", "Lucida Sans Unicode", "MS Sans Serif", Verdana, sans-serif;
+    font-size: 11px;
+}
+
+.vdfform textarea, .vdfform input, .vdfform select, .vdfform .bcd_data, .vdfform .ascii_data, .vdfform .date_data, .vdfform .text_data{
+    color: #000000;
+    opacity: 100;
+}
+
+.vdfform  .bcd_data {
+    text-align: right;
+}
+    
+.vdfform textarea, .vdfform input[type="text"], .vdfform input[type="password"], .vdfform select{
+    border: 1px solid #99BBE8;
+    background: #FFFFFF;
+    padding: 1px;
+    *padding: 2px;
+}
+
+.vdfform select{
+    padding: 0px;
+}
+ 
+ .vdfform input[type="password"]{
+    font-family: Verdana, sans-serif;
+ }
+
+ .vdfform input[type="text"]:hover, .vdfform select:hover,  .vdfform textarea:hover {
+    border: 1px solid #83D7F3;
+ }
+ 
+.vdfform input[type="text"]:focus, .vdfform select:focus, .vdfform textarea:focus {
+    border: 1px solid #5D646C;
+ }
+
+/*
+    Box style
+*/    
+.boxcontainer {
+    margin: 6px;
+    padding: 0px;
+    background: url(default-bar.gif) repeat-x;
+    border: 1px solid #99BBE8; /*sets color of form border*/
+    background-color: #EFFAFE;
+}
+
+.boxcontainer .boxcontent{
+    padding: 16px 9px 16px 9px;
+}
+
+.boxcontainer h2{
+    height: 19px;
+    display: block;
+    color: #283C47;
+    font-size: 12px;
+    font-style:normal;
+    font-weight: normal;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 10px 0px 10px;
+}
+
+.vdf-mozilla .modaldialog .titlebar td, .vdf-opera .modaldialog .titlebar td{
+    height: 20px;
+}
+
+/*
+    Entry table
+*/
+.vdfform .EntryTable .Label{
+    text-align: left;
+    padding-right: 5px;
+    padding-bottom: 9px;
+    padding-top: 1px;
+    white-space: nowrap;
+    color: #466381;
+}
+.vdfform  .EntryTable .Data{
+    vertical-align: top;
+}
+
+
+/*
+    Lookup button
+*/
+    
+.LookupButton {
+    border: none;
+    height: 14px;
+    width: 16px;
+    padding: 0px;
+    margin: auto;
+    cursor: pointer;
+    
+    background: url(default-lookup.png) no-repeat center;
+}
+
+.LookupButton:hover, .vdfform .LookupButton:hover {
+    border: none;
+    background: url(default-lookup-hover.png) no-repeat center;
+}    
+
+    
+/*
+    Regular button
+*/
+
+.vdfform .ButtonNormal, .ButtonNormal {
+    background: url(default-button.gif) repeat-x;
+    cursor: pointer;
+    height: 20px;
+    border: 1px solid #99BBE8;
+}
+
+.vdfform .ButtonNormal:hover, .ButtonNormal:hover {
+    background: url(default-button-hover.gif) repeat-x;
+}
+
+/*
+    Toolbar
+*/
+
+.Toolbar .NavigationButton, .vdfform .NavigationButton{
+    border: 0px solid black;
+    height: 17px;
+    width: 24px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.Toolbar {
+    height: 19px;
+}
+  
+.Toolbar .ButtonCell{
+    width: 30px;
+}
+
+.Toolbar .TextCell{
+    width: 30px;
+}
+
+#First {
+    background: url(Toolbar/First.gif) no-repeat;
+}
+#First:hover {
+    background: url(Toolbar/First-hover.gif) no-repeat;
+}
+
+#Previous {
+    background: url(Toolbar/Previous.gif) no-repeat;
+}
+#Previous:hover {
+    background: url(Toolbar/Previous-hover.gif) no-repeat;
+}
+
+#Equal {
+    background: url(Toolbar/Equal.gif) no-repeat;
+}
+#Equal:hover {
+    background: url(Toolbar/Equal-hover.gif) no-repeat;
+}
+
+#Next {
+    background: url(Toolbar/Next.gif) no-repeat;
+}
+#Next:hover {
+    background: url(Toolbar/Next-hover.gif) no-repeat;
+}
+
+
+#Last {
+    background: url(Toolbar/Last.gif) no-repeat;
+}
+#Last:hover {
+    background: url(Toolbar/Last-hover.gif) no-repeat;
+}
+
+#Save {
+    background: url(Toolbar/Save.gif) no-repeat;
+}
+#Save:hover {
+    background: url(Toolbar/Save-hover.gif) no-repeat;
+}
+
+#Clear {
+    background: url(Toolbar/Clear.gif) no-repeat;
+}
+#Clear:hover {
+    background: url(Toolbar/Clear-hover.gif) no-repeat;
+}
+
+#Delete {
+    background: url(Toolbar/Delete.gif) no-repeat;
+}
+#Delete:hover {
+    background: url(Toolbar/Delete-hover.gif) no-repeat;
+}
+
+
+/*------------------------------
+    ERROR STYLE
+-------------------------------*/
+    
+.vdfform input[type="text"], .vdfform select, .vdfform textarea   {
+    
+}
+    
+.vdfform input[type="text"].fieldError, .vdfform select.fieldError, .vdfform textarea.fieldError{
+    border: 1px solid #F62A2A;
+    color: red;
+    background-image: url(default-zigzag.gif);
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+
+.fieldErrorIcon{
+    background-image: url(default-error.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 1px 8px 0px 8px;
+    margin: auto;
+    cursor: pointer;
+}
+
+.fieldErrorText{
+    color: #F62A2A;
+}
+
+/*
+   FIELD LOCKING
+*/
+
+.vdfform .locked {
+   background-image: url(loading_small.gif);
+   background-position: right;
+   background-repeat: no-repeat;
+}
+
+.vdfform .locked_overlay {
+   position: absolute;
+   background-image: url(loading_small.gif);
+   background-repeat: no-repeat;
+   background-position: center right;
+   padding: 0px 0px 0px 0px;
+   margin: 0px 0px 0px 0px;
+}
+
+.vdfform .locked_fade {
+   color: #EAEAEA;
+   background-color: #D1F0FF;  
+}
+
+/*------------------------------
+    SUGGESTION LIST STYLE
+-------------------------------*/
+
+.vdfSuggest{
+    position: absolute;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    z-index: 400;
+    margin-top: -1px;
+}
+
+.vdfSuggest .vdfSuggestion{
+    padding: 2px;
+    background-color: #ffffff;
+}
+
+.vdfSuggest .selected{
+    padding: 2px;   
+    background-color: #00A1E2;
+    color: #ffffff;
+}
+
+.vdfSuggest tr{
+    cursor: pointer;
+}
+
+.vdfSuggest td{
+    padding: 2px;
+}
+
