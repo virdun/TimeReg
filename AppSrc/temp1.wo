@@ -1,0 +1,227 @@
+Use cWebBusinessProcess.pkg
+Use cWebReport.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cTimeregDataDictionary.dd
+
+Object otemp1 Is A cWebBusinessProcess
+    Set psDescription To "temp1"
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+        Send DefineAllExtendedFields
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCompany_DD
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCustomer_DD
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCompany_DD
+    End_Object // oUser_DD
+
+    Object oTimereg_DD Is A cTimeregDataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oUser_DD
+        Set DDO_Server To oProject_DD
+    End_Object // oTimereg_DD
+
+    Set Main_DD To oTimereg_DD
+
+    Object oReport Is A cWebReport
+
+        Set piOrdering To 3
+        Set piConstrainFile To Project.File_Number
+        Set priConstrainRowId To (NullRowId()) //  We will set this elsewhere
+
+        Function Break1 Returns String
+            RowId  riRec
+            String sRec
+            Move (GetRowId(Project.File_number)) To riRec
+            Move (SerializeRowId(riRec)) to sRec
+            Function_Return sRec //  Break every time the parent record changes
+        End_Function // Break1
+
+        Procedure OnInitBreakpoints 
+            Send RegisterBreakpoint Get_Break1
+        End_Procedure // OnInitBreakpoints
+
+        Procedure OnPageTop
+            
+            String sCustomerCustomerid
+            String sProjectName
+            String sUserLoginname
+
+            Get ddValueEncode "Customer.Customerid" to sCustomerCustomerid
+            Get ddValueEncode "Project.Name" to sProjectName
+            Get ddValueEncode "User.Loginname" to sUserLoginname
+
+            Send WriteHtmlTableBegin 'border="0" width="50%" class="ReportHdr1Table"'
+
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Customer Number' 'class="Label"'
+                Send WriteHtmlCell (FormatNumber (sCustomerCustomerid,0)) 'class="Data"'
+            Send WriteHtmlRowEnd
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Name' 'class="Label"'
+                Send WriteHtmlCell sProjectName 'class="Data"'
+            Send WriteHtmlRowEnd
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Loginname' 'class="Label"'
+                Send WriteHtmlCell sUserLoginname 'class="Data"'
+            Send WriteHtmlRowEnd
+            Send WriteHtmlTableEnd
+        End_Procedure
+
+
+        Procedure OnSubHeader1 
+            String sCustomerCustomerid
+            String sProjectName
+            String sUserLoginname
+
+            Get ddValueEncode "Customer.Customerid" To sCustomerCustomerid
+            Get ddValueEncode "Project.Name" To sProjectName
+            Get ddValueEncode "User.Loginname" To sUserLoginname
+
+            Send WriteHtmlTableBegin 'border="0" width="50%" class="ReportHdr1Table"'
+
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Customer Number' 'class="Label"'
+                Send WriteHtmlCell (FormatNumber (sCustomerCustomerid,0)) 'class="Data"'
+            Send WriteHtmlRowEnd
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Name' 'class="Label"'
+                Send WriteHtmlCell sProjectName 'class="Data"'
+            Send WriteHtmlRowEnd
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Loginname' 'class="Label"'
+                Send WriteHtmlCell sUserLoginname 'class="Data"'
+            Send WriteHtmlRowEnd
+
+            Send WriteHtmlTableEnd
+
+            Send WriteHtmlTableBegin 'border="0" width="99%" class="ReportTable"'
+
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Projectid' 'class="Header" align="right"'
+                Send WriteHtmlCellHeader 'Start Date' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Start Time' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'End Date' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'End Time' 'class="Header" align="left"'
+            Send WriteHtmlRowEnd
+        End_Procedure // OnSubHeader1
+
+        Procedure OnBody 
+            String sText
+            String sProjectProjectid
+            String sTimeregStart_Date
+            String sTimeregStart_Time
+            String sTimeregEnd_Date
+            String sTimeregEnd_Time
+
+            Get ddValueEncode "Project.Projectid" To sProjectProjectid
+            Get ddValueEncode "Timereg.Start_Date" To sTimeregStart_Date
+            Get ddValueEncode "Timereg.Start_Time" To sTimeregStart_Time
+            Get ddValueEncode "Timereg.End_Date" To sTimeregEnd_Date
+            Get ddValueEncode "Timereg.End_Time" To sTimeregEnd_Time
+
+            Send WriteHtmlRowBegin
+                Get AddRowIdLink (FormatNumber (sProjectProjectid,0)) To sText
+                Send WriteHtmlCell sText 'class="Data" align="right"'
+                Send WriteHtmlCell sTimeregStart_Date 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregStart_Time 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregEnd_Date 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregEnd_Time 'class="Data" align="left"'
+            Send WriteHtmlRowEnd
+
+            Send AddSubTotal 1 sProjectProjectid // Subtotal of field
+        End_Procedure // OnBody
+
+        Procedure OnSubTotal1 
+            Number nTotal
+
+            Get SubTotal 1 To nTotal
+            Send WriteHtmlCell (FormatNumber (nTotal, 0)) 'class="Header" align="right" '
+
+            Send WriteHtmlCell "" 'Colspan="4" class="Header"'
+
+            Send WriteHtmlTableEnd
+        End_Procedure // OnSubTotal1
+
+        Function Runtemp1 RowId riHeaderRowId Returns RowId
+            Integer eStatus
+
+            Set piMaxCount To 0
+            Set priStartRowId To (NullRowId())
+            Set priConstrainRowId To riHeaderRowId
+
+            Get DoRunReport To eStatus
+
+            Function_Return (NullRowId())
+        End_Function // Runtemp1
+
+        Function RunAlltemp1 RowId riStartRowId Integer iMaxCount Returns RowId
+            RowId   riLastRowId
+            Integer eStatus
+
+            Set piMaxCount To iMaxCount
+            Set piMaxCountBreakLevel To 1
+            Set priStartRowId To riStartRowId
+            Set priConstrainRowId To (NullRowId())
+
+            Get DoRunReport To eStatus
+
+            Get priLastRowId To riLastRowId
+
+            Function_Return riLastRowId
+        End_Function // RunAlltemp1
+
+    End_Object // oReport
+
+    { Published=True }
+    { Description="Name to link for drill down report" }
+    Procedure SetHRefName String sName
+        Set psHRefname of oReport To sName
+    End_Procedure // SetHRefName
+
+    { Published=True }
+    { Description="Run report selected record" }
+    Function Runtemp1 String sHeaderRowId Returns String
+        RowId   riHeaderRowId riLastRowId
+        String  sLastRowId
+
+        Move (DeserializeRowId(sHeaderRowId)) to riHeaderRowId
+        Get Runtemp1 of oReport riHeaderRowId To riLastRowId
+        Move (SerializeRowId(riLastRowId)) to sLastRowId
+
+        Function_Return sLastRowId
+    End_Function // Runtemp1
+
+    { Published=True }
+    { Description="Run report for all records" }
+    Function RunAlltemp1 String sStartRowId Integer iMaxCount Returns String
+        RowId   riStartRowId riLastRowId
+        String  sLastRowId
+
+        Move (DeserializeRowId(sStartRowId)) to riStartRowId
+        Get RunAlltemp1 of oReport riStartRowId iMaxCount To riLastRowId
+        Move (SerializeRowId(riLastRowId)) to sLastRowId
+
+        Function_Return sLastRowId
+    End_Function // RunAlltemp1
+
+    Set pbAllowSaveNew To False
+    Set pbAllowSaveEdit To False
+    Set pbAllowDelete To False
+
+End_Object // otemp1

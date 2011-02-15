@@ -1,0 +1,30 @@
+// C:\VDF programs\Timesag\AppSrc\UserTest.wo
+// UserTest
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use User.DD
+
+Object oUserTest Is A cAjaxWebBusinessProcess
+    Set psDescription to "UserTest"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+    End_Object // oUser_DD
+
+    Set Main_DD To oUser_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oUserTest

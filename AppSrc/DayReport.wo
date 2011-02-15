@@ -1,0 +1,251 @@
+// DayReport.wo
+// DayReport
+Use cWebBusinessProcess.pkg
+Use cWebReport.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cTimeregDataDictionary.dd
+
+Object oDayReport Is A cWebBusinessProcess
+    Set psDescription To "DayReport"
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+        Send DefineAllExtendedFields
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCompany_DD
+        Property String psStartNAME
+        Property String psStopNAME
+
+        Procedure OnConstrain 
+            String sStart sStop
+            Constrain customer.CompanyId eq session.CompanyId
+
+            Get psStartNAME To sStart
+            Get psStopNAME To sStop
+
+            If (sStart <> "" And sStop <> "") Begin
+                Constrain Customer.Name Between sStart And sStop
+            End
+            Else Begin
+                If (sStart <> "") Begin
+                    Constrain Customer.Name Ge sStart
+                End
+                Else Begin
+                    If (sStop <> "") Begin
+                        Constrain Customer.Name Le sStop
+                    End
+                End
+            End
+        End_Procedure // OnConstrain
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCustomer_DD
+        Property String psStartname
+        Property String psStopname
+
+        Procedure OnConstrain 
+            String sStart sStop
+
+            Get psStartname To sStart
+            Get psStopname To sStop
+
+            If (sStart <> "" And sStop <> "") Begin
+                Constrain Project.Name Between sStart And sStop
+            End
+            Else Begin
+                If (sStart <> "") Begin
+                    Constrain Project.Name Ge sStart
+                End
+                Else Begin
+                    If (sStop <> "") Begin
+                        Constrain Project.Name Le sStop
+                    End
+                End
+            End
+        End_Procedure // OnConstrain
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oCompany_DD
+        Property String psStartLoginName
+        Property String psStopLoginName
+
+        Procedure OnConstrain 
+            String sStart sStop
+
+            Get psStartLoginName To sStart
+            Get psStopLoginName To sStop
+
+            If (sStart <> "" And sStop <> "") Begin
+                Constrain User.Loginname Between sStart And sStop
+            End
+            Else Begin
+                If (sStart <> "") Begin
+                    Constrain User.Loginname Ge sStart
+                End
+                Else Begin
+                    If (sStop <> "") Begin
+                        Constrain User.Loginname Le sStop
+                    End
+                End
+            End
+        End_Procedure // OnConstrain
+    End_Object // oUser_DD
+
+    Object oTimereg_DD Is A cTimeregDataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oUser_DD
+        Set DDO_Server To oProject_DD
+    End_Object // oTimereg_DD
+
+    Set Main_DD To oTimereg_DD
+
+
+    Object oReport Is A cWebReport
+        Procedure OnPageTop 
+            Send WriteHtmlTableBegin 'border="0" width="99%" class="ReportTable"'
+
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Loginname' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Firstname' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Lastname' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Customer Name' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Name' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Start Date' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Start Time' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'End Time' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Time' 'class="Header" align="left"'
+            Send WriteHtmlRowEnd
+        End_Procedure // OnPageTop
+
+        Procedure OnBody 
+            String sRet zeroH zeroM
+            Integer first hours minutes totalMinutes startMinutes endMinutes
+            String sText
+            String sUserLoginname
+            String sUserFirstname
+            String sUserLastname
+            String sCustomerName
+            String sProjectName
+            String sTimeregStart_Date
+            String sTimeregStart_Time
+            String sTimeregEnd_Time
+            String sTimeregTime
+
+            Get ddValueEncode "User.Loginname" To sUserLoginname
+            Get ddValueEncode "User.Firstname" To sUserFirstname
+            Get ddValueEncode "User.Lastname" To sUserLastname
+            Get ddValueEncode "Customer.Name" To sCustomerName
+            Get ddValueEncode "Project.Name" To sProjectName
+            Get ddValueEncode "Timereg.Start_Date" To sTimeregStart_Date
+            Get ddValueEncode "Timereg.Start_Time" To sTimeregStart_Time
+            Get ddValueEncode "Timereg.End_Time" to sTimeregEnd_Time
+
+            Move (mid(sTimeregStart_Time, 2, 1)) to hours
+            Move (mid(sTimeregStart_Time, 2, 4)) to minutes
+            Move ((60*hours)+minutes) to startMinutes
+            Move (mid(sTimeregEnd_Time, 2, 1)) to hours
+            Move (mid(sTimeregEnd_Time, 2, 4)) to minutes
+            Move ((60*hours)+minutes) to endMinutes
+            Move (endMinutes-startMinutes+totalMinutes) to totalMinutes
+            
+            Move (totalMinutes/60) to hours
+            Move (totalMinutes-(hours*60)) to minutes
+
+            Move "" to zeroH
+            Move "" to zeroM
+            If (hours < 10) Move "0" to zeroH
+            If (minutes < 10) Move "0" to zeroM
+
+            Move (zeroH - String(hours) - ':' - zeroM - String(minutes)) to sTimeregTime
+
+            Send WriteHtmlRowBegin
+                Get AddRowIdLink sUserLoginname To sText
+                Send WriteHtmlCell sText 'class="Data" align="left"'
+                Send WriteHtmlCell sUserFirstname 'class="Data" align="left"'
+                Send WriteHtmlCell sUserLastname 'class="Data" align="left"'
+                Send WriteHtmlCell sCustomerName 'class="Data" align="left"'
+                Send WriteHtmlCell sProjectName 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregStart_Date 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregStart_Time 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregEnd_Time 'class="Data" align="left"'
+                Send WriteHtmlCell sTimeregTime 'class="Data" align="left"'
+            Send WriteHtmlRowEnd
+        End_Procedure // OnBody
+
+        Procedure OnPageBottom 
+            Send WriteHtmlTableEnd
+        End_Procedure // OnPageBottom
+
+        Function RunDayReport Integer iIndex RowId riStartRowId Integer iMaxCount Returns RowId
+            RowId   riLastRowId
+            Integer eStatus
+
+            Set piOrdering To iIndex
+            Set piMaxCount To iMaxCount
+            Set piMaxCountBreakLevel To 0
+            Set priStartRowId To riStartRowId
+
+            Get DoRunReport To eStatus
+
+            Get priLastRowId To riLastRowId
+
+            Function_Return riLastRowId
+        End_Function // RunDayReport
+    End_Object // oReport
+
+    { Published=True }
+    { Description="Name to link for drill down report" }
+    Procedure SetHRefName String sName
+        Set psHRefname of oReport To sName
+    End_Procedure // SetHRefName
+
+    { Published=True }
+    { Description="Sets the reports selection criteria" }
+    Procedure SetCustomer_Name String sStart String sStop
+        Set psStartNAME of oCustomer_DD To (Uppercase (sStart))
+        Set psStopNAME  of oCustomer_DD To (Uppercase (sStop))
+    End_Procedure // SetCustomer_Name
+
+    { Published=True }
+    { Description="Sets the reports selection criteria" }
+    Procedure SetProject_Name String sStart String sStop
+        Set psStartname of oProject_DD To (Uppercase (sStart))
+        Set psStopname  of oProject_DD To (Uppercase (sStop))
+    End_Procedure // SetProject_Name
+
+    { Published=True }
+    { Description="Sets the reports selection criteria" }
+    Procedure SetUser_Loginname String sStart String sStop
+        Set psStartLoginName of oUser_DD To (Uppercase (sStart))
+        Set psStopLoginName  of oUser_DD To (Uppercase (sStop))
+    End_Procedure // SetUser_Loginname
+
+    { Published=True }
+    { Description="Run Report" }
+    Function RunDayReport Integer iIndex String sStartRowId Integer iMaxCount Returns String
+        RowId  riStartRowId riEndRowId
+        String sEndRowId
+
+        Move (DeserializeRowId(sStartRowId)) to riStartRowId
+        Get RunDayReport of oReport iIndex riStartRowId iMaxCount To riEndRowId
+        Move (SerializeRowId(riEndRowId)) to sEndRowId
+
+        Function_Return sEndRowId
+    End_Function // RunDayReport
+
+    Set pbAllowSaveNew To False
+    Set pbAllowSaveEdit To False
+    Set pbAllowDelete To False
+
+End_Object // oDayReport

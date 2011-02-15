@@ -1,0 +1,400 @@
+//
+//  Instantion of the Application Data Service Manager that is used for global 
+//  information, session manager, rights. Contains extra application layer 
+//  functionality for user login & rights management.
+//
+//  Since:
+//      07/19/2004
+//  Changed:
+//      --
+//  Version:
+//      0.9
+//  Created:
+//      Data Access Europe (Harm Wibier)
+//
+
+Use cAjaxSessionManager.pkg
+
+Use Session.DD
+Use User.DD
+Use cCompanyDataDictionary.dd
+
+Object oSessionManager is a cAjaxSessionManager
+    Object oUser_DD is a User_DataDictionary
+    End_Object
+
+//    Object oCompany_DD is a cCompanyDataDictionary
+//        Constrain company.CompanyId eq user.companyid
+//    End_Object
+    Object oSession_DD is a Session_DataDictionary
+        Set DDO_Server to oUser_DD
+        
+        //  
+        //  Used for the SOFT Session -> User relation
+        //
+        Procedure Attach_Main_File
+            Forward Send Attach_Main_File
+        
+            Move User.Userid to Session.Userid
+            Move User.CompanyId to Session.CompanyId
+            
+        End_Procedure   // Attach_Main_File
+        
+        //
+        //  Used for the SOFT Session -> User relation
+        //
+        Procedure Relate_Main_File
+            Boolean bMustFind
+            Integer iStatus iFile
+            
+            Forward Send Relate_Main_File
+      
+            Get Main_File to iFile
+            Get_Attribute DF_FILE_STATUS of iFile to iStatus
+                
+            If (iStatus = DF_FILE_INACTIVE) Begin
+                Move True to bMustFind
+            End
+            Else If (Session.Userid <> User.Userid) Begin
+                Move True to bMustFind
+            End
+        
+            If bMustFind Begin // relate SoftFile only if required
+                Clear User
+                Move Session.Userid to User.Userid
+                Find eq User.Userid
+            End
+        
+            Get_Attribute DF_FILE_STATUS of User.File_Number to iStatus
+            If (iStatus <> DF_FILE_INACTIVE) Begin
+                Send Request_Relate User.File_Number
+            End
+            Else Begin
+                Send Request_Clear_File User.File_Number
+            End
+
+//            Clear Customer
+//            Move User.CompanyId to Company.CompanyId
+//            Find eq company.CompanyId
+        
+        End_Procedure
+    End_Object
+
+    Set Main_DD to oSession_DD
+
+    //  Main settings:
+    Property Integer piSessionTimeout 60
+    
+    //
+    //  Overloads the CreateSession and adds functionality to save the newly 
+    //  created session.
+    //
+    //  Params:
+    //      sRemoteAddress  Adres of the client
+    //  Returns:
+    //      Unique session key
+    //
+    Function CreateSession String sRemoteAddress returns String
+        Integer iError iAttempts
+        String sSessionKey
+        
+        //  Detach user DD
+        Send Clear of oSession_DD
+        Send Detach_Server of oSession_DD oUser_DD
+        
+        //  Forward call until we get an unique sessionid (max 100 attempts)
+        Move 0 to iAttempts
+        Repeat
+            Forward Get CreateSession sRemoteAddress to sSessionKey
+            
+            Increment iAttempts
+            
+            Move sSessionKey to Session.SessionKey
+            Send Find of oSession_DD EQ Index.2
+        Until ((not(Found)) or (iAttempts >= 100))
+        
+        If (iAttempts < 100) Begin
+        
+            //  Create session record
+            Send Clear of oUser_DD
+            Send Clear of oSession_DD
+            Set Field_Changed_Value of oSession_DD Field Session.SessionKey to sSessionKey
+            Set Field_Changed_Value of oSession_DD Field Session.RemoteAddress to sRemoteAddress
+            
+            Get Request_Validate of oSession_DD to iError
+            If (iError = 0) Begin
+                Send Request_Save of oSession_DD
+            End
+            
+        End
+        Else Begin
+            Error 915 ("Unable to create unique session id (" * iAttempts * " attempts)")
+            Function_Return ""
+        End
+        
+        //  Re-attach user DD
+        Set DDO_Server of oSession_DD to oUser_DD
+        Send Clear of oUser_DD
+
+        Function_Return sSessionKey
+    End_Function
+    
+    //
+    //  Overloads the ValidateSession and adds functionality that checks if the
+    //  session exists in the Sessions table and is not timed out (10 minutes 
+    //  not accessed). If valid session it updates the last access time to the
+    //  current time.
+    //  
+    //  Params:
+    //      sSessionKey Key of the session to validate
+    //  Returns:
+    //      0 if session is valid
+    //
+    { Published = True  }
+    { Description = "Checks the if the passed session id is a valid session id"  }
+    Function ValidateSession String sSessionKey returns Integer
+        DateTime dtLastAccess dtCurrent
+        TimeSpan tsDiff
+        Integer iError iSessionTimeout
+        
+        //  Detach user DD
+        Send Clear of oSession_DD
+        Send Detach_Server of oSession_DD oUser_DD
+        
+        Forward Get ValidateSession sSessionKey to iError
+        Get piSessionTimeout to iSessionTimeout 
+        
+        
+        If (iError = 0) Begin
+            //  Try to find the session record
+            Move sSessionKey to Session.SessionKey
+            Send Find of oSession_DD EQ Index.2
+            
+            If (Found) Begin
+                
+                //  Calculate timespan between now and last access time
+                Move (CurrentDateTime()) to dtCurrent
+                Move Session.LastAccessDate to dtLastAccess
+                Get LoadTimeString of oSession_DD dtLastAccess Session.LastAccessTime to dtLastAccess
+                Move (dtCurrent - dtLastAccess) To tsDiff
+                
+                //  Check if session didn't time out
+                If (SpanTotalMinutes(tsDiff) < iSessionTimeout) Begin
+                    
+                    //  Register this access
+                    Send RegisterAccess of oSession_DD
+                End
+                Else Begin
+                    Error 950 "Session timed out (reload page to recreate session)"
+                    Move 950 to iError
+                End
+            End
+            Else Begin
+                Move 951 to iError
+                Error 951 "Session key not known (reload page to recreate session)"
+            End
+        End
+        
+        //  Re-attach user DD
+        Set DDO_Server of oSession_DD to oUser_DD
+        Send Clear of oUser_DD
+
+        Function_Return iError        
+    End_Function
+    
+    //
+    //  Handles userlogin request. Finds the session and the user and saves the
+    //  relation if login succesfull. This method is custom added at the object 
+    //  / application layer.
+    //
+    //  Params:
+    //      sSessionKey Identification string of the session
+    //      sLoginName  Name of the user
+    //      sPassword   Password of the user
+    //  Returns:
+    //      Error number (0 if succesfull)
+    //
+    { Published = True  }
+    { Description = "Checks the username and password and saves the login in the session if succesful."  }
+    Function UserLogin String sSessionKey String sLoginName String sPassword Returns Integer
+        Integer iError
+        
+        Move 0 to iError
+        
+        //  Try to find the session record
+        Send Clear of oSession_DD
+        Move sSessionKey to Session.SessionKey
+        Send Find of oSession_DD EQ Index.2
+        If (Found) Begin
+        
+            //  Try to find the user
+            Send Clear of oUser_DD
+            Move (Lowercase(sLoginName)) to User.LoginName
+            Send Find of oUser_DD EQ Index.2
+            If (Found and (Lowercase(sLoginName) = Lowercase(Trim(User.LoginName)))) Begin
+            
+                //  Check the password
+                If (Trim(User.Password) = Trim(sPassword)) Begin
+                    
+                    //  Check user active
+                    If (User.State = "A") Begin
+                        //  Save login
+                        Get Request_Validate of oSession_DD to iError
+                        If (iError = 0) Begin
+                            Send Request_Save of oSession_DD
+                        End
+                    End 
+                    Else Begin
+                        Move 962 to iError
+                        Error 962 "User account is disabled!"
+                    End
+                End
+                Else Begin
+                    Move 961 to iError
+                    Error 961 "Username or password invalid!"
+                End
+            End 
+            Else Begin
+                Move 961 to iError
+                Error 961 "Username or password invalid!"
+            End
+            
+        End
+        Else Begin
+            Move 951 to iError
+            Error 951 "Session key not known (reload page to recreate session)"
+        End        
+        Send Clear of oUser_DD
+
+        Function_Return iError
+    End_Function
+    
+    //
+    //  Checks if the user that is logged in has the rights to execute the 
+    //  action.
+    //
+    //  Params:
+    //      sSessionKey String identifier of the current session
+    //      sType       String describing the action ("save", "delete", "find",
+    //                  "clear", "meta")
+    //      sWebObject  Name of the webobject   that will handle the call.
+    //      sMethod     If sType is rmi this contains the name of the method 
+    //                  that is called.
+    //  Returns:
+    //      True if the action is allowed
+    //
+    Function HasRights String sSessionKey String sType String sWebObject String sMethod Returns Boolean
+        Boolean bResult
+        
+        If (sWebObject = "oRegister" and sType = "save") Function_Return True
+        
+        
+        If (sType = "save" or sType = "delete") Begin
+            //  Find session info
+            Get FindSessionInfo sSessionKey to bResult
+            
+            If (bResult) Begin
+                //  Check if user found
+                Get HasRecord of oUser_DD to bResult
+                
+                If (bResult) Begin    
+                    //  Check if user has rights       
+                    Move (User.EditRights = "Y") to bResult
+                End
+            End
+        End
+        Else Begin
+            Move (sType = "find" or sType = "meta" or sType = "clear" or sType = "rmi" or sType = "tree") to bResult
+        End
+    
+        Function_Return bResult
+    End_Function
+    
+    //
+    //  Method used under asp to simply find the Session & User info (to reduce
+    //  number of commands fired from asp). The information will be fetched 
+    //  using the DDValue method.
+    //
+    //  Params:
+    //      sSessionKey String identifying the session key
+    //  Returns:
+    //      (True if session found)
+    //
+    { Published = True  }
+    { Description = "Loads the correct session info into the data dictionary."  }
+    Function FindSessionInfo String sSessionKey Returns Boolean
+        Boolean bResult
+        
+        //  Try to find the session record
+        Send Clear of oSession_DD
+        Move sSessionKey to Session.SessionKey
+        Send Find of oSession_DD EQ Index.2
+
+        Move (Found) to bResult
+
+        Function_Return bResult
+    End_Function
+    
+    { Published = True  }
+    { Description = "Loads the correct session info into the data dictionary."  }
+    Function getUserId Returns Integer
+        Function_Return Session.UserId
+    End_Function
+
+    { Published = True  }
+    { Description = "Loads the correct session info into the data dictionary."  }
+    Function getMyCustomers Returns Integer
+        Function_Return Session.UserId
+    End_Function
+
+    { Published = True  }
+    { Description = "Loads the correct session info into the data dictionary."  }
+    Function getMyProjects Returns String
+        String ret
+        Clear UserProj
+        Move Session.UserId to UserProj.UserId
+        Find ge UserProj by Index.1
+        While (Found)
+            Clear Project
+            Move UserProj.ProjectId to Project.ProjectId
+            Find eq Project by Index.1
+            If (Found) Begin
+                Move (ret + Project.name) to ret
+            End
+            Find gt UserProj by Index.1
+            Move (UserProj.UserId = Session.UserId) to Found
+        Loop
+        
+        //Send WriteHtml ret
+        
+        Function_Return ret
+    End_Function
+
+    { Published = True  }
+    { Description = "Loads the correct session info into the data dictionary."  }
+    Procedure getMyProjectsDDL Returns String
+        String ret
+        Move '<select name="project_id">' to ret
+        Clear UserProj
+        Move Session.UserId to UserProj.UserId
+        Find ge UserProj by Index.1
+        While (Found)
+            Clear Project
+            Move UserProj.ProjectId to Project.ProjectId
+            Find eq Project by Index.1
+            If (Found) Begin
+                Move (ret - '<option value="' - (String(Project.ProjectId)) - '">' - Project.name - '</option>') to ret
+            End
+            Find gt UserProj by Index.1
+            Move (UserProj.UserId = Session.UserId) to Found
+        Loop
+        Move (ret - '</select>') to ret
+        //Send WriteHtml ret
+        //Send WriteHtml 'test'
+        
+        //Function_Return ret
+    End_Procedure
+
+End_Object
+
+

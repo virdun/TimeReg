@@ -1,0 +1,56 @@
+// C:\VDF programs\timer\AppSrc\RegEdit.wo
+// RegEdit
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cTimeregDataDictionary.dd
+
+Object oRegEdit Is A cAjaxWebBusinessProcess
+    Set psDescription to "RegEdit"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD is a cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Set DDO_Server To oCustomer_DD
+        Procedure OnConstrain
+            Constrain project.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain user.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oUser_DD
+
+    Object oTimereg_DD Is A cTimeregDataDictionary
+        Set DDO_Server To oUser_DD
+        Set DDO_Server To oProject_DD
+        Set Constrain_File To User.File_Number
+    End_Object // oTimereg_DD
+
+    Set Main_DD To oTimereg_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oRegEdit

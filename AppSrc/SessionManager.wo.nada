@@ -1,0 +1,46 @@
+Use cAjaxSessionManager.pkg
+
+Object oSessionManager is a cAjaxSessionManager
+
+    //
+    //  Validates the session by just checking the session key length.
+    //
+    //  Params: 
+    //      sSessionKey String identifying the session
+    //  Returns:
+    //      Error code (0 if no errors)
+    //
+    Function ValidateSession String sSessionKey Returns Integer
+        //Integer iSessionKeyLength
+        //
+        //Get piSessionKeyLength to iSessionKeyLength
+        //
+        //If (Length(Trim(sSessionKey)) = iSessionKeyLength) Begin
+        //     Function_Return 0
+        //End
+        //Else Begin
+        //    Error 952 "Invalid session id"
+        //    Function_Return 952
+        //End
+    End_Function
+
+
+    //
+    //  Checks if the user that is logged in has the rights to execute the 
+    //  action.
+    //
+    //  Params:
+    //      sSessionKey String identifier of the current session
+    //      sType       String describing the action ("save", "delete", "find",
+    //                  "clear", "meta")
+    //  Returns:
+    //      True if the action is allowed
+    //
+    Function HasRights String sSessionKey String sType String sWebObject String sMethod Returns Boolean
+        Boolean bResult
+
+        Forward Get HasRights sSessionKey sType to bResult
+
+        Function_Return bResult
+    End_Function
+End_Object

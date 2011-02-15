@@ -1,0 +1,57 @@
+// C:\VDF-Programs\timer\AppSrc\ProjectsDetailsInterface.wo
+// ProjectsDetailsInterface
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cUserprojDataDictionary.dd
+
+Object oProjectsDetailsInterface Is A cAjaxWebBusinessProcess
+    Set psDescription to "Project Report"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Set DDO_Server to oCustomer_DD
+        Set Field_Option Field Project.name DD_REQUIRED to False
+        Set Constrain_File to CUSTOMER.File_Number 
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server to oCompany_DD
+//        Set Field_Option Field User.LoginName DD_REQUIRED to False
+        
+        Procedure OnConstrain
+            Constrain User.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oUser_DD
+
+    Object oUserproj_DD is a cUserprojDataDictionary
+        Set DDO_Server to oUser_DD
+        Set DDO_Server to oProject_DD
+//        Set Constrain_File to Project.File_Number
+    End_Object // oUserproj_DD
+
+    Set Main_DD To oUserproj_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oProjectsDetailsInterface

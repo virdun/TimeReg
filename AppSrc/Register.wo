@@ -1,0 +1,61 @@
+// C:\VDF Programs\TimeReg\AppSrc\Register.wo
+// Register
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use User.DD
+
+Object oRegister Is A cAjaxWebBusinessProcess
+    Set psDescription to "Register"
+    Set pbClearAfterSave to False
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure Save_Main_File
+            Move "A" to User.State
+            Move "Y" to User.EditRights
+            Forward Send Save_Main_File
+        End_Procedure
+    End_Object // oUser_DD
+
+    Set Main_DD To oUser_DD
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+
+// FUNCTION NOT IN USE
+
+    { Published = True  }
+    { Description = "Registers the user"  }
+    Function registerNewUser String Username String Password String Name String Surname String Mail Returns Integer
+        Integer iError
+        Move 0 to iError
+       
+        If (Username = "") Begin
+            Move 950 to iError
+            Error 950 "Username may not be blank!"
+            Function_Return iError
+        End
+        
+        Clear User
+        Move Username to User.LoginName
+        Move Password to User.Password
+        Move Name     to User.FirstName
+        Move Surname  to User.LastName
+        Move Mail     to User.Mail
+        Move 'A'      to User.State
+        Move 'Y'      to User.EditRights
+        
+        SaveRecord User
+        Function_Return iError
+    End_Function
+
+End_Object // oRegister

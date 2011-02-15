@@ -1,0 +1,420 @@
+// C:\VDF Programs\TimeReg\AppSrc\Project.wo
+// Project
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+//Use HtmlEncode.pkg
+
+Object oProject Is A cAjaxWebBusinessProcess
+    Set psDescription to "Project"
+    Set pbClearAfterSave to False
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Set DDO_Server To oCustomer_DD
+        Set Cascade_Delete_State to False 
+        Procedure Save_Main_File
+            Move session.CompanyId to Project.CompanyId
+            Forward Send Save_Main_File
+        End_Procedure
+
+    End_Object // oProject_DD
+
+    Object oTimereg_DD is a cTimeregDataDictionary
+        Set DDO_Server to oProject_DD
+    End_Object
+    Set Main_DD to oProject_DD
+
+
+    Function HtmlEncodeNoCrLfJB Global String sDat Returns String
+           Move (Replaces("&",sDat,"&amp;"))          to sDat // must do this first!
+           Move (Replaces("<",sDat,"&lt;"))           to sDat
+           Move (Replaces(">",sDat,"&gt;"))           to sDat
+           Move (Replaces('"',sDat,"&quot;"))         to sDat
+           Move (Replaces("'",sDat,"&#39;"))          to sDat // can't use apos
+    
+           Move (Replaces('Ü',sDat,"&aring;"))         to sDat
+           Move (Replaces('è',sDat,"&Aring;"))         to sDat
+           Move (Replaces('õ',sDat,"&oslash;"))         to sDat
+           Move (Replaces('ù',sDat,"&Oslash;"))         to sDat
+           Move (Replaces('ë',sDat,"&aelig;"))         to sDat
+           Move (Replaces('í',sDat,"&AElig;"))         to sDat
+           Move (Replaces('Ñ',sDat,"&auml;"))         to sDat
+           Move (Replaces('é',sDat,"&Auml;"))         to sDat
+           Move (Replaces('î',sDat,"&ouml;"))         to sDat
+           Move (Replaces('ô',sDat,"&Ouml;"))         to sDat
+        
+//           Move (Replaces('Ü',sDat,"a"))         to sDat
+//           Move (Replaces('è',sDat,"A"))         to sDat
+//           Move (Replaces('õ',sDat,"o"))         to sDat
+//           Move (Replaces('ù',sDat,"O"))         to sDat
+//           Move (Replaces('ë',sDat,"ae"))         to sDat
+//           Move (Replaces('í',sDat,"AE"))         to sDat
+//           Move (Replaces('Ñ',sDat,"a"))         to sDat
+//           Move (Replaces('é',sDat,"A"))         to sDat
+//           Move (Replaces('î',sDat,"o"))         to sDat
+//           Move (Replaces('ô',sDat,"O"))         to sDat
+
+           Function_Return sDat
+    End_Function
+    
+    
+    Function HtmlEncodeJB Global String sDat Returns String
+           Get HtmlEncodeNoCrLFJB sDat to sDat
+           Move (Replaces(character(10),sDat,""))     to sDat
+           Move (Replaces(character(13),sDat,"<br />")) to sDat
+           Function_Return sDat
+    End_Function
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+    
+    { Published = True  }
+    { Description = ""  }
+    Function getProjectList Integer iUserId Returns String
+        String sRet
+        Integer first
+        Boolean bFundet
+        Move 1 to first
+        Move ('{list:[') to sRet
+        // Get my projects from UserProj
+        Clear UserProj
+        Move iUserId to UserProj.UserId
+        Find ge UserProj by Index.1
+        // foreach UserProj get Project data
+        While (Found and (UserProj.UserId=iUserId))
+//            If (UserProj.UserId = iUserId) Begin
+                If (first = 0) Begin
+                    Move (sRet + ', ') to sRet
+                End
+                Move 0 to first
+                Clear Project
+                Move UserProj.ProjectId to Project.ProjectId
+                Find eq Project by Index.1
+                Move (sRet + '{"project_id":' + String(Project.ProjectId) + ', "name": "' + (Trim(HtmlEncodeJB(String(Project.name)))) + '"}') to sRet
+//            End
+            Find gt UserProj by Index.1
+            
+        Loop
+        Move (sRet + ']}') to sRet
+        Function_Return sRet
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function startProject Integer UserId Integer ProjectId String Comment Returns Integer
+        String sRet, sUserId, sProject
+        Integer iRet
+        Time tmVar
+       
+        Clear TimeReg
+        Move UserId to TimeReg.UserId
+        Move "" to TimeReg.end_time
+        Find ge TimeReg by Index.1
+        If (TimeReg.end_time = "     " and TimeReg.UserId = UserId) Begin
+        End
+        Else Begin
+            Clear TimeReg
+            //Reread TimeReg
+            Move UserId to TimeReg.UserId
+            Move ProjectId to TimeReg.ProjectId
+            Move (Date(CurrentDateTime())) to TimeReg.start_date
+                Move (DateSetSecond(tmVar, (DateGetSecond(CurrentDateTime())))) to tmVar
+                Move (DateSetMinute(tmVar, (DateGetMinute(CurrentDateTime())))) to tmVar
+                Move (DateSetHour  (tmVar, (DateGetHour(CurrentDateTime())))) to tmVar
+            Move tmVar to TimeReg.start_time
+            Move Comment to TimeReg.Comments
+            SaveRecord TimeReg
+            //Unlock
+        End
+        
+        Function_Return 0 //sRet
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function stopProject Integer UserId Integer ProjectId String Comment Returns Integer
+        String sRet, sUserId, sProject
+        Integer iRet
+        Time tmVar
+       
+        Clear TimeReg
+        Move UserId to TimeReg.UserId
+        Move "" to TimeReg.end_time
+        Find ge TimeReg by Index.1
+        If (TimeReg.end_time = "     " and TimeReg.UserId = UserId) Begin
+            Reread TimeReg
+            If (TimeReg.start_date = (Date(CurrentDateTime()))) Begin
+                Move (Date(CurrentDateTime())) to TimeReg.end_date
+                Move (DateSetSecond(tmVar, (DateGetSecond(CurrentDateTime())))) to tmVar
+                Move (DateSetMinute(tmVar, (DateGetMinute(CurrentDateTime())))) to tmVar
+                Move (DateSetHour  (tmVar, (DateGetHour(CurrentDateTime())))) to tmVar
+                Move tmVar to TimeReg.end_time
+                Move Comment to TimeReg.Comments
+                SaveRecord TimeReg
+            End
+            Else Begin
+                Move TimeReg.start_date to TimeReg.end_date
+                //Move (DateSetSecond(tmVar, (DateGetSecond(CurrentDateTime())))) to tmVar
+                //Move (DateSetMinute(tmVar, (DateGetMinute(CurrentDateTime())))) to tmVar
+                //Move (DateSetHour  (tmVar, (DateGetHour(CurrentDateTime())))) to tmVar
+                Move '23:59:00' to TimeReg.end_time
+                Move Comment to TimeReg.Comments
+
+                Clear TimeReg
+                //Reread TimeReg
+                Move UserId to TimeReg.UserId
+                Move ProjectId to TimeReg.ProjectId
+                Move (Date(CurrentDateTime())) to TimeReg.start_date
+                    //Move (DateSetSecond(tmVar, (DateGetSecond(CurrentDateTime())))) to tmVar
+                    //Move (DateSetMinute(tmVar, (DateGetMinute(CurrentDateTime())))) to tmVar
+                    //Move (DateSetHour  (tmVar, (DateGetHour(CurrentDateTime())))) to tmVar
+                Move '00:00:00' to TimeReg.start_time
+                Move Comment to TimeReg.Comments
+
+                Move (Date(CurrentDateTime())) to TimeReg.end_date
+                Move (DateSetSecond(tmVar, (DateGetSecond(CurrentDateTime())))) to tmVar
+                Move (DateSetMinute(tmVar, (DateGetMinute(CurrentDateTime())))) to tmVar
+                Move (DateSetHour  (tmVar, (DateGetHour(CurrentDateTime())))) to tmVar
+                Move tmVar to TimeReg.end_time
+                Move Comment to TimeReg.Comments
+
+                SaveRecord TimeReg 
+            End
+            Unlock
+            Function_Return 1
+        End
+       
+        Function_Return 0
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function hasOpen Integer iUserId Returns Integer
+        Clear TimeReg
+        Move iUserId to TimeReg.UserId
+        Move "" to TimeReg.end_time
+        Find ge TimeReg by Index.1
+        If (TimeReg.end_time = "     " and TimeReg.UserId = iUserId) Function_Return TimeReg.ProjectId
+        Function_Return -1
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function hasOpenComment Integer iUserId Returns String
+        Clear TimeReg
+        Move iUserId to TimeReg.UserId
+        Move "" to TimeReg.end_time
+        Find ge TimeReg by Index.1
+        If (TimeReg.end_time = "     " and TimeReg.UserId = iUserId) Function_Return TimeReg.Comments
+        Function_Return ""
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function dayReport Integer iUserId String RepDate Integer working Returns String
+        String sRet zeroH zeroM sComments
+        Integer first hours minutes totalMinutes startMinutes endMinutes
+        Integer stops
+        Boolean found1 found2 activeProject
+        Move 1 to first
+        Move ('{date:"' + RepDate + '", list:[') to sRet
+        // Get my projects from UserProj
+        Clear UserProj
+        Move iUserId to UserProj.UserId
+        Find ge UserProj by Index.1
+        Move Found to found1
+        // foreach UserProj get Project data
+        While (Found1)
+            If (UserProj.UserId = iUserId) Begin
+                Clear TimeReg
+                Move iUserId to TimeReg.UserId
+                Move RepDate to TimeReg.start_date
+                Find ge TimeReg by Index.2
+                Move Found to found2
+                Move 0 to stops
+                Move False to activeProject
+                Move '' to sComments
+                While (Found2)
+                    If (RepDate = TimeReg.start_date and TimeReg.end_time <> "     ") Begin
+                        If (TimeReg.ProjectId = UserProj.ProjectId) Begin
+                            //get start and end date
+                            Move (sComments + ', ' + Timereg.Comments) to sComments
+                            Move (mid(TimeReg.start_time, 2, 1)) to hours
+                            Move (mid(TimeReg.start_time, 2, 4)) to minutes
+                            Move ((60*hours)+minutes) to startMinutes
+                            Move (mid(TimeReg.end_time, 2, 1)) to hours
+                            Move (mid(TimeReg.end_time, 2, 4)) to minutes
+                            Move ((60*hours)+minutes) to endMinutes
+                            //add to total minutes
+                            Move (endMinutes-startMinutes+totalMinutes) to totalMinutes
+                            
+                            Move (stops+1) to stops
+                        End
+                    End
+                    If (RepDate = TimeReg.start_date and TimeReg.ProjectId = UserProj.ProjectId and (TimeReg.end_time = "     " and TimeReg.start_time <> "     ")) Begin
+                        Move True to activeProject
+                        Move 1 to totalMinutes //Only to tell that there is something going on here
+                    End
+                    Find gt TimeReg by Index.2
+                    Move Found to Found2
+                    If (Found2) Move (RepDate = TimeReg.start_date) to found2
+                Loop
+                
+                Move (totalMinutes/60) to hours
+                Move (totalMinutes-(hours*60)) to minutes
+                
+    
+                Move "" to zeroH
+                Move "" to zeroM
+                If (hours < 10) Move "0" to zeroH
+                If (minutes < 10) Move "0" to zeroM
+               
+                If (totalMinutes > 0) Begin
+                    If (first = 0) Begin
+                        Move (sRet + ', ') to sRet
+                    End
+                    Move 0 to first
+                    Clear Project
+                    Move UserProj.ProjectId to Project.ProjectId
+                    Find eq Project by Index.1
+                    If (activeProject) Begin
+                        Move (sRet + '{"name": "' + HtmlEncodeJB(String(Trim(Project.name))) + '", "comments": "' + HtmlEncodeJB(sComments) + '", "time": "active", "stops": "'+String(stops)+'"}') to sRet
+                    End
+                    Else Begin
+                        Move (sRet + '{"name": "' + HtmlEncodeJB(String(Trim(Project.name))) + '", "comments": "' + HtmlEncodeJB(sComments) + '", "time": "' + zeroH + String(hours) + ':' + zeroM + String(minutes) + '", "stops": "'+String(stops)+'"}') to sRet
+                    End
+                End
+                Move 0 to totalMinutes
+            End
+            Find gt UserProj by Index.1
+            Move Found to found1
+        Loop
+        Move (sRet + ']}') to sRet
+        Function_Return sRet
+    End_Function
+
+    { Published = True  }
+    { Description = ""  }
+    Function intervalReport Integer iUserId Date startDate Date endDate Returns String
+        String sRet zeroH zeroM sComments
+        Integer first hours minutes totalMinutes startMinutes endMinutes
+        Integer stops firstDay 
+        Date RepDate
+        Boolean found1 found2 activeProject
+        
+        Move ('{days:[') to sRet
+        Move 1 to firstDay
+        Move startDate to RepDate
+        While (RepDate <= endDate)
+            If (firstDay = 0) Begin
+                Move (sRet + ', ') to sRet
+            End
+            Move 0 to firstDay
+            Move 1 to first
+            Move (String(sRet) + '{date:"' + String(RepDate) + '", list:[') to sRet
+            // Get my projects from UserProj
+            Clear UserProj
+            Move iUserId to UserProj.UserId
+            Find ge UserProj by Index.1
+            Move Found to found1
+            // foreach UserProj get Project data
+            While (Found1)
+                If (UserProj.UserId = iUserId) Begin
+                    Clear TimeReg
+                    Move iUserId to TimeReg.UserId
+                    Move RepDate to TimeReg.start_date
+                    Find ge TimeReg by Index.2
+                    Move Found to found2
+                    Move 0 to stops
+                    Move False to activeProject
+                    Move '' to sComments
+                    While (Found2)
+                        If (RepDate = TimeReg.start_date and TimeReg.end_time <> "     ") Begin
+                            If (TimeReg.ProjectId = UserProj.ProjectId) Begin
+                                //get start and end date
+                                If (sComments = "") Begin
+                                   Move (Timereg.Comments) to sComments 
+                                End
+                                Else Begin
+                                    Move (sComments + ', ' + Timereg.Comments) to sComments
+                                End
+                                Move (mid(TimeReg.start_time, 2, 1)) to hours
+                                Move (mid(TimeReg.start_time, 2, 4)) to minutes
+                                Move ((60 * hours) + minutes) to startMinutes
+                                Move (mid(TimeReg.end_time, 2, 1)) to hours
+                                Move (mid(TimeReg.end_time, 2, 4)) to minutes
+                                Move ((60 * hours) + minutes) to endMinutes
+                                //add to total minutes
+                                Move (endMinutes-startMinutes+totalMinutes) to totalMinutes
+                                
+                                Move (stops+1) to stops
+                            End
+                        End
+                        If (RepDate = TimeReg.start_date and TimeReg.ProjectId = UserProj.ProjectId and (TimeReg.end_time = "     " and TimeReg.start_time <> "     ")) Begin
+                            Move True to activeProject
+                            Move 1 to totalMinutes //Only to tell that there is something going on here
+                        End
+                        Find gt TimeReg by Index.2
+                        Move Found to Found2
+                        If (Found2) Move (RepDate = TimeReg.start_date) to found2
+                    Loop
+                    
+                    Move (totalMinutes/60) to hours
+                    Move (totalMinutes-(hours*60)) to minutes
+        
+                    Move "" to zeroH
+                    Move "" to zeroM
+                    If (hours < 10) Move "0" to zeroH
+                    If (minutes < 10) Move "0" to zeroM
+                   
+                    If (totalMinutes > 0) Begin
+                        If (first = 0) Begin
+                            Move (sRet + ', ') to sRet
+                        End
+                        Move 0 to first
+                        Clear Project
+                        Move UserProj.ProjectId to Project.ProjectId
+                        Find eq Project by Index.1
+//                        If (activeProject) Begin
+//                            Move (sRet + '{"name": "' + String(Trim(Project.name)) + '", "time": "active", "stops": "'+String(stops)+'"}') to sRet
+//                        End
+//                        Else Begin
+//                            Move (sRet + '{"name": "' + String(Trim(Project.name)) + '", "time": "' + zeroH + String(hours) + ':' + zeroM + String(minutes) + '", "stops": "'+String(stops)+'"}') to sRet
+//                        End
+                        If (activeProject) Begin
+                            Move (sRet + '{"name": "' + HtmlEncodeJB(String(Trim(Project.name))) + '", "comments": "' + HtmlEncodeJB(sComments) + '", "time": "active", "stops": "'+String(stops)+'"}') to sRet
+                        End
+                        Else Begin
+                            Move (sRet + '{"name": "' + HtmlEncodeJB(String(Trim(Project.name))) + '", "comments": "' + HtmlEncodeJB(sComments) + '", "time": "' + zeroH + String(hours) + ':' + zeroM + String(minutes) + '", "stops": "'+String(stops)+'"}') to sRet
+                        End
+                    End
+                    Move 0 to totalMinutes
+                End
+                Find gt UserProj by Index.1
+                Move Found to found1
+            Loop
+            Move (sRet + ']}') to sRet
+            Move (RepDate + 1) to RepDate
+        Loop
+        Move (sRet + ']}') to sRet
+
+        Function_Return sRet
+    End_Function
+
+End_Object // oProject

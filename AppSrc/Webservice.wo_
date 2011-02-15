@@ -1,0 +1,10 @@
+Use cAjaxWebServiceInterface.pkg
+Use SessionManager.wo
+
+Object oWebService is a cAjaxWebserviceInterface
+
+    //  Set Management object
+    Set phoSessionManager to oSessionManager
+    Set psServiceName to "WebService"
+
+End_Object

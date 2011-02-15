@@ -1,0 +1,50 @@
+// C:\VDF-Programs\timer\AppSrc\HoursEdit.wo
+// HoursEdit
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cTimeregDataDictionary.dd
+
+Object oHoursEdit Is A cAjaxWebBusinessProcess
+    Set psDescription to "HoursEdit"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Set DDO_Server To oCustomer_DD
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+    End_Object // oUser_DD
+
+    Object oTimereg_DD Is A cTimeregDataDictionary
+        Send DefineAllExtendedFields
+        Set DDO_Server To oUser_DD
+        Set DDO_Server To oProject_DD
+    End_Object // oTimereg_DD
+
+    Set Main_DD To oTimereg_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oHoursEdit

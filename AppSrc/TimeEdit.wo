@@ -1,0 +1,56 @@
+// C:\VDF Programs\TimeReg\AppSrc\UserProj.wo
+// UserProj
+//
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use cCompanyDataDictionary.dd
+Use CUSTOMER.DD
+Use cProjectDataDictionary.dd
+Use User.DD
+Use cUserprojDataDictionary.dd
+
+Object oUserProj Is A cAjaxWebBusinessProcess
+    Set psDescription to "UserProj"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oCustomer_DD Is A Customer_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Object oProject_DD Is A cProjectDataDictionary
+        Set DDO_Server To oCustomer_DD
+        Procedure OnConstrain
+            Constrain project.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oProject_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+        Procedure OnConstrain
+            Constrain user.CompanyId eq session.CompanyId
+        End_Procedure
+    End_Object // oUser_DD
+
+    Object oUserproj_DD Is A cUserprojDataDictionary
+        Set DDO_Server To oUser_DD
+        Set DDO_Server To oProject_DD
+        Set Constrain_File To User.File_Number
+    End_Object // oUserproj_DD
+
+    Set Main_DD To oUser_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oUserProj

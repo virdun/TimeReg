@@ -1,0 +1,53 @@
+//****************************************************************************//
+//                                                                            //
+// $File name  : HtmlEncode.pkg                                               //
+// $File title : HtmlEncode global function                                   //
+// Notice      :                                                              //
+// $Author(s)  : John Tuohy                                                   //
+//                                                                            //
+// Confidential Trade Secret.                                                 //
+// Copyright 1998-1999 Data Access Corporation, Miami FL, USA                 //
+// All Rights reserved                                                        //
+// DataFlex is a registered trademark of Data Access Corporation.             //
+// $Rev History                                                               //
+//                                                                            //
+// $Rev History                                                               //
+//                                                                            //
+//                                                                            //
+// JJT/JW 9/8/98  Added HtmlEnocdeNoCrlf as per JW                            //
+// JJT 8/28/98    created                                                     //                                                   //
+//****************************************************************************//
+
+
+
+Function HtmlEncodeNoCrLf Global string sDat Returns string
+       Move (Replaces("&",sDat,"&amp;"))          to sDat // must do this first!
+       Move (Replaces("<",sDat,"&lt;"))           to sDat
+       Move (Replaces(">",sDat,"&gt;"))           to sDat
+       Move (Replaces('"',sDat,"&quot;"))         to sDat
+       Move (Replaces("'",sDat,"&#39;"))          to sDat // can't use apos
+
+       Move (Replaces('Ü',sDat,"&aring;"))         to sDat
+       Move (Replaces('è',sDat,"&Aring;"))         to sDat
+       Move (Replaces('õ',sDat,"&oslash;"))         to sDat
+       Move (Replaces('ù',sDat,"&Oslash;"))         to sDat
+       Move (Replaces('ë',sDat,"&aelig;"))         to sDat
+       Move (Replaces('í',sDat,"&AElig;"))         to sDat
+       Move (Replaces('Ñ',sDat,"&auml;"))         to sDat
+       Move (Replaces('é',sDat,"&Auml;"))         to sDat
+       Move (Replaces('î',sDat,"&ouml;"))         to sDat
+       Move (Replaces('ô',sDat,"&Ouml;"))         to sDat
+    
+       Function_Return sDat
+End_Function
+
+
+Function HtmlEncode Global String sDat Returns String
+    fej
+       Get HtmlEncodeNoCrLF sDat to sDat
+       Move (Replaces(character(10),sDat,""))     to sDat
+       Move (Replaces(character(13),sDat,"<br />")) to sDat
+       Function_Return sDat
+End_Function
+
+

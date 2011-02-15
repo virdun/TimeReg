@@ -1,0 +1,52 @@
+// Customer.wo
+// Customer
+
+Use cAjaxWebBusinessProcess.pkg
+
+Use Customer.DD
+Use cCompanyDataDictionary.dd
+//Use User.dd
+
+Object oCustomer Is A cAjaxWebBusinessProcess
+    Set psDescription To "Customer"
+    
+    Object oCompany_DD is a cCompanyDataDictionary
+//        Constrain company.CompanyId eq user.companyid
+    End_Object
+    
+    Object oCustomer_DD is a Customer_DataDictionary
+        Set DDO_Server to oCompany_DD
+        Send DefineAllExtendedFields
+//        Set DDO_Server to oCompany_DD
+        
+//        Send Remove_Server_File Company.File_Number
+//        Procedure Relate_Main_File
+//            Forward Send Relate_Main_File
+//        
+//            Clear Company
+//            Move User.CompanyId to Company.CompanyId
+//            Find eq company.CompanyId
+//
+//            Move Company.CompanyId to CUSTOMER.CompanyId
+//        
+//        End_Procedure
+
+        Procedure Save_Main_File
+            Move session.CompanyId to CUSTOMER.CompanyId
+            Forward Send Save_Main_File
+        End_Procedure
+
+        Procedure OnConstrain
+            Constrain customer.CompanyId eq session.CompanyId
+//            Constrain customer as (customer.CompanyId = User.CompanyId)
+        End_Procedure
+    End_Object // oCustomer_DD
+
+    Set Main_DD to oCustomer_DD
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    // Send RegisterFullErrorInterface
+    // Send RegisterAutoEntryInterface
+
+End_Object // oCustomer

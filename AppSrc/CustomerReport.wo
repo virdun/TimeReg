@@ -1,0 +1,122 @@
+Use cAjaxWebBusinessProcess.pkg
+Use cWebReport.pkg
+
+Use Customer.DD
+
+Object oCustomerReport is a cWebBusinessProcess
+    Set pbAllowDelete to False
+    Set pbAllowSaveEdit to FALSE
+    Set pbAllowSaveNew to FALSE
+    Set pbVerboseErrors to TRUE
+    Set psDescription to "Customer Information Drill Down Report"
+
+    Object oCustomer_DD is a Customer_DataDictionary
+        Send DefineAllExtendedFields
+
+        Property Number pnStartCustomer_Number
+        Property Number pnStopCustomer_Number
+        
+        Procedure OnConstrain
+            Number nStart nStop
+            Date   dStart dStop
+            String sStart sStop
+        
+            Get pnStartCustomer_Number To nStart
+            Get pnStopCustomer_Number  To nStop
+        
+            If (nStart<>0 And nStop<>0) ;
+                Constrain Customer.CustomerId Between nStart and nStop
+            Else If (nStart>0) ;
+                Constrain Customer.CustomerId Ge nStart
+            Else If (nStop<0) ;
+                Constrain Customer.CustomerId Le nStop
+
+            Constrain customer.CompanyId eq session.CompanyId
+        End_Procedure
+
+    End_Object
+
+    Set Main_DD to oCustomer_DD
+
+    Object oReport is a cWebReport
+        
+        Procedure OnPageTop
+            Send WriteHtmlTableBegin 'border="0" width="99%" class="ReportTable"'
+        
+            Send WriteHtmlRowBegin
+                Send WriteHtmlCellHeader 'Number' 'class="Header" align="right"'
+                Send WriteHtmlCellHeader 'Customer Name' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Phone' 'class="Header" align="left"'
+                Send WriteHtmlCellHeader 'Balance' 'class="Header" align="right"'
+                Send WriteHtmlCellHeader 'Status' 'class="Header" align="left"'
+            Send WriteHtmlRowEnd
+        End_Procedure
+        
+        Procedure OnBody
+            String sText sName sPhone sStatus
+            Number nID nBalance
+        
+            Send WriteHtmlRowBegin
+                Get ddValueEncode "Customer.CustomerId" to nID
+                Get ddValueEncode "Customer.Name"            To sName
+                Get ddValueEncode "Customer.Phone_Number"    To sPhone
+                Get ddValueEncode "Customer.Balance"         To nBalance
+                Get ddValueEncode "Customer.Status" DDDESC   to sStatus
+                Get AddRowIdLink (FormatNumber(nId,0)) To sText
+                Send WriteHtmlCell sText 'class="Data" align="center"'
+                Get AddRowIdLink sName To sText
+                Send WriteHtmlCell sText 'class="Data" align="left"'
+                Send WriteHtmlCell sPhone 'class="Data" align="left"'
+                Send WriteHtmlCell (FormatNumber(nBalance,2)) 'class="Data" align="right"'
+                Send WriteHtmlCell sStatus 'class="Data" align="left"'
+            Send WriteHtmlRowEnd
+        End_Procedure
+        
+        Procedure OnPageBottom
+            Send WriteHtmlTableEnd
+        End_Procedure
+        
+        Function RunCustomerReport Integer iIndex RowId riStart Integer iMax Returns RowId
+            RowId   riEnd
+            Integer iEnd iStat
+        
+            Set piOrdering           To iIndex
+            Set piMaxCount           To iMax
+            Set piMaxCountBreakLevel To 0
+            Set priStartRowId        To riStart
+            Get DoRunReport          To iStat
+            Get priLastRowId         To riEnd
+            Function_Return riEnd
+        End_Function
+
+    End_Object
+    
+    { Published = True  }
+    { Description = "Sets the full URL of a file to be displayed in drill down operation"  }
+    Procedure SetHRefName String sName
+        Set psHRefname Of oReport To sName
+    End_Procedure
+    
+    { Published = True  }
+    { Description = "Sets the start & stop customer number"  }
+    Procedure SetCustomer_Number String sStart String sStop
+        Handle hDD
+    
+        Get phMainDD To hDD
+        Set pnStartCustomer_Number Of hDD To sStart
+        Set pnStopCustomer_Number  Of hDD To sStop
+    End_Procedure
+    
+    { Published = True  }
+    { Description = "Starts "  }
+    Function RunCustomerReport Integer iIndex string sStart Integer iMax Returns string
+        Rowid riEnd
+    
+        Get RunCustomerReport Of oReport iIndex (DeserializeRowId(sStart)) iMax To riEnd
+    
+        Function_Return (SerializeRowid(riEnd))
+    End_Function    
+    
+    Send RegisterStandardInterface
+    
+End_Object

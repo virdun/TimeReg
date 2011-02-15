@@ -1,0 +1,41 @@
+// C:\VDF Programs\TimeReg\AppSrc\User.wo
+// User
+//
+
+Use cAjaxWebBusinessProcess.pkg
+Use Session.dd
+Use cCompanyDataDictionary.dd
+Use User.DD
+
+Object oUser Is A cAjaxWebBusinessProcess
+    Set psDescription to "User"
+    Set pbClearAfterSave to False
+
+
+    Object oCompany_DD Is A cCompanyDataDictionary
+    End_Object // oCompany_DD
+
+    Object oUser_DD Is A User_DataDictionary
+        Set DDO_Server To oCompany_DD
+
+        Procedure Save_Main_File
+            Move Session.CompanyId to user.CompanyId
+            Forward Send Save_Main_File
+        End_Procedure
+
+        Procedure OnConstrain
+            
+            Constrain user.CompanyId eq session.CompanyId
+//            Constrain customer as (customer.CompanyId = User.CompanyId)
+        End_Procedure
+    End_Object // oUser_DD
+
+    Set Main_DD To oUser_DD
+
+
+    Send RegisterStandardInterface
+    //Send RegisterDebugInterface
+    //Send RegisterFullErrorInterface
+    //Send RegisterAutoEntryInterface
+
+End_Object // oUser
